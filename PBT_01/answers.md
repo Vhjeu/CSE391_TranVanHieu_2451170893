@@ -105,5 +105,23 @@ Câu B3:
 - Lỗi 11: Dòng 36 — Sử dụng thẻ <main> lần thứ hai — Một trang web chỉ được có duy nhất một thẻ <main>. Thay thế thẻ thứ hai bằng <aside> (vì đây là nội dung bên lề).
 - Lỗi 12: Dòng 41 — Thẻ <p> trong footer thiếu thẻ đóng — Thêm </p> để kết thúc đoạn văn bản.
 
+______________________________________________________________
+Câu B4: Phân tích trang shopee.vn
+1. ![alt text](screenshots/b4.1.png)
+- 3 thẻ semantic HTML5 mà trang shopee sử dụng: 
++ <section>: Trong code (<section class="G9LjCQ" ...>). Thẻ này dùng để chia các phân đoạn nội dung logic trên trang đăng nhập.
++ <html>: Có thuộc tính lang="vi", khai báo ngôn ngữ chính xác cho trình duyệt.
++ <noscript>: (Dưới thẻ <body>) Thẻ này dùng để hiển thị nội dung thay thế nếu người dùng tắt JavaScript — một thẻ semantic quan trọng cho tính tiếp cận.
+
+2. Không tìm được thẻ <table> trong trang shoppe
+- Đã tìm các mặt hàng có thông số ( thường họ để bảng ) nhưng bảng đó em thấy toàn là ảnh.
+
+3. ![alt text](screenshots/b4.3.png)
+- Form đó có  method GET. Không có action
+- Các Input types được dùng:
++ type="text": ô nhập tài khoản (Email/SĐT/Tên đăng nhập).
++ type="password": Nằm trong thẻ <div>. Đây là ô nhập mật khẩu để ẩn ký tự.
++ Thẻ <button>: Nút gửi form
+
 
 
