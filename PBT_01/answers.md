@@ -123,5 +123,62 @@ Câu B4: Phân tích trang shopee.vn
 + type="password": Nằm trong thẻ <div>. Đây là ô nhập mật khẩu để ẩn ký tự.
 + Thẻ <button>: Nút gửi form
 
+_______________________________________________________________
+Câu C1:
+<header>  -- vì đây là phần đầu trang
+    <nav> -- nav vì đây là để điều hướng
+        <a href="#">Trang chủ</a> -- thẻ a để liên kết
+        <a href="#">Sản phẩm</a>
+    </nav>
+</header>
+
+<main> -- phần thân ( nội dung chính)
+    <nav aria-label="breadcrumb"> 
+        <ol> -- sắp xếp theo thứ tự
+            <li>Trang chủ</li> -- thẻ li vì để liệt kê trong danh sách 
+            <li>Điện thoại</li> 
+            <li>iPhone 16</li> 
+        </ol>
+    </nav>
+    <article> -- dùng article vì  là nội dung độc lập
+        <section> -- Chia nhỏ trang web thành từng mảng nội dung khác 
+            <img src="screenshots/may1.jpg" alt="Ảnh 1"> -- thẻ img hiển thị hình ảnh
+            <img src="screenshots/may2.jpg" alt="Ảnh 2"> 
+            <img src="screenshots/may3.jpg" alt="Ảnh 3"> 
+            <img src="screenshots/may4.jpg" alt="Ảnh 4"> 
+            <img src="screenshots/may5.jpg" alt="Ảnh 5"> 
+        </section>
+        <section> 
+            <h1>iPhone 16</h1> -- h1 vì để làm tiêu đề
+            <p>Giá: 25.000.000đ</p> -- đoạn văn
+            <div>5 sao</div> 
+        </section>
+        <section> 
+            <table> -- để hiển thị bảng cấu hình, đối chiếu giữa các thông tin
+                <thead> <tr> <th>Cấu hình</th> </tr> </thead>  -- thead là dùng cho phần đầu trong bảng, tr nghĩa là table row ( tạo hàng ngang )
+                <tbody> <tr> <td>Chip A18</td> </tr> </tbody>    --tbody là dùng cho nội dung chính của bảng 
+            </table>
+        </section>
+        <section> 
+            <h2>Đánh giá</h2> 
+                <ul> -- danh sách nhưng không cần thứ tự
+                <li> -- thẻ Li vì đây là từng thành phần trong danh sách đó
+                    <article> <h3>hieu</h3> <p>Sản phẩm rất tốt!</p> </article>
+                </li>
+            </ul>
+        </section>
+    </article>
+    <aside> <h3>Sản phẩm tương tự</h3> -- Dùng cho Sidebar. Nó chứa các thông tin không phải trọng tâm
+    </aside>
+</main>
+
+<footer> <p> 2026 Trần Văn Hiếu</p> </footer> -- dùng footer vì là đoạn cuối
+
+_________________________________________________________________________________________
+Câu C2:
+Việc cho rằng chỉ cần dùng <div> kết hợp với class là đủ thì đó là không đúng. Đầu tiên, về mặt SEO (Tối ưu hóa công cụ tìm kiếm), các thuật toán của Google không "nhìn" giao diện như con người mà chúng đọc cấu trúc mã nguồn để đánh giá. Thẻ Semantic như <main> hay <article> đóng vai trò là những biển chỉ dẫn, giúp bot tìm kiếm xác định nhanh chóng đâu là nội dung trọng tâm để ưu tiên lập chỉ mục, từ đó tăng thứ hạng website hiệu quả hơn so với những khối <div> vô danh. Thứ hai, về Accessibility (Khả năng tiếp cận), hàng triệu người khiếm thị sử dụng trình đọc màn hình để lướt web. Những thiết bị này dựa hoàn toàn vào ý nghĩa của thẻ để thông báo cho người dùng biết họ đang ở menu điều hướng hay một đoạn văn bản. Nếu mọi thứ đều là <div>, người dùng khuyết tật sẽ hoàn toàn bị "lạc" trong một cấu trúc không rõ ràng.
+
+Ví dụ như là là việc sử dụng thẻ <button> so với <div>. Khi dùng thẻ <button> chuẩn, trình duyệt tự động cung cấp khả năng tương tác bằng bàn phím (như dùng phím Tab để di chuyển và phím Enter để kích hoạt). Nếu dùng <div> và gắn class .btn, lập trình viên sẽ phải tốn thêm nhiều thời gian để viết JavaScript chỉ để "giả lập" lại những tính năng cơ bản này. Tuy nhiên, thẻ <div> vẫn cực kỳ phù hợp khi được dùng làm các (khối bao bọc) trung gian để phục vụ mục đích dàn trang bằng CSS Flexbox hoặc Grid, nơi mà khối đó không mang ý nghĩa nội dung cụ thể nào. Tóm lại, Semantic HTML không phải là gánh nặng, mà là tiêu chuẩn để tạo ra một sản phẩm web bền vững, chuyên nghiệp và có trách nhiệm với mọi đối tượng người dùng.
+
 
 
