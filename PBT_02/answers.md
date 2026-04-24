@@ -43,3 +43,54 @@ Câu A2: Chương 7
 
 __________________________________________________________________________________________
 Câu A3: Accessibility chương 7
+- <label for="email"> quan trọng cho người dùng screen reader vì:
++ Với Screen Reader: Nếu không có label, máy chỉ đọc là "ô nhập văn bản" (người khiếm thị không biết nhập gì). Có label, máy sẽ đọc rõ: "Email, ô nhập văn bản".
++ Với người dùng thường: Bấm chuột vào chữ "Email" thì con trỏ tự nhảy vào ô nhập.
+
+- Dùng <fieldset> + <legend> khi:
++ Để nhóm các lựa chọn liên quan (thường là Radio hoặc Checkbox).
+Ví dụ: Nhóm chọn giới tính
+<fieldset>
+  <legend>Giới tính</legend> 
+  <input type="radio" id="m"> <label for="m">Nam</label>
+  <input type="radio" id="f"> <label for="f">Nữ</label>
+</fieldset>
+
+- aria-label dùng khi: Khi nút bấm chỉ có icon, không có chữ.
+không nên dùng khi đã có label vì nó có thể bị lặp, máy sẽ có thể đọc lại
+
+__________________________________________________________________________________________
+Câu A4: Media
+(1)
+- Thuộc tính loading="lazy" trên thẻ <img>:
++ Giải thích: Chỉ tải ảnh khi người dùng cuộn trang đến gần vị trí của ảnh đó thay vì tải toàn bộ ngay khi mở trang.
+- Cải thiện: Tốc độ tải trang ban đầu nhanh hơn, tiết kiệm băng thông cho người dùng và giảm tải cho server.
+- Không nên dùng khi: các ảnh nằm ở phần đầu trang mà người dùng thấy ngay khi vừa vào web, vì nó sẽ làm chậm quá trình hiển thị nội dung đầu tiên.
+(2)
+- Nên cung cấp nhiều <source> trong thẻ <video> vì:
++ Mỗi trình duyệt hỗ trợ các định dạng video khác nhau. Cung cấp nhiều source giúp trình duyệt tự chọn định dạng nó hiểu được để phát.
+- 3 format video web phổ biến:
++ MP4
++ WebM
++ Ogg
+- Thuộc tính alt trên <img> dùng để:
++ Hiển thị văn bản của ảnh, hỗ trợ người khiếm thính thông qua trình đọc màn hình.
+- alt tốt cho 3 trường hợp:
++ Ảnh sản phẩm iPhone 16: alt="điện thoại iphone 16 256gb màu titan"
++ Ảnh trang trí (decorative): phần trang trí thì không cần phải dùng alt tránh gây rối mắt, lẫn lộn với nội dung chính của web.
++ Ảnh biểu đồ doanh thu Q1/2026: alt="Biểu đồ cột cho thấy doanh thu Q1 năm 2026".
+
+__________________________________________________________________________________________
+Câu A5:
+- So sánh <figure> vs <img>:
++ Dùng Cách 1 (Chỉ <img>) khi:
+Dùng khi hình ảnh đó chỉ là một phần nhỏ, mang tính chất minh họa hoặc bổ trợ ngay lập tức cho nội dung mà không cần giải thích thêm bằng chữ bên dưới.
+
+VD1: Logo của trường Đại học Thủy Lợi trên thanh Header. Nó chỉ cần hiện ra, người dùng tự hiểu đó là logo, không ai để chữ "Logo trường" ở dưới cả.
+VD2: Ảnh đại diện facebook nhỏ của tôi trong phần bình luận. Nó chỉ là một biểu tượng nhận diện cá nhân gắn liền với tên người dùng.
+
++ Dùng Cách 2 (<figure> + <figcaption>) khi:
+Dùng khi hình ảnh đó là trọng tâm của nội dung, cần có chú thích rõ ràng để người đọc hiểu thông điệp hoặc dữ liệu đi kèm.
+
+VD1 (Sản phẩm): Một chiếc iPhone 16 trên trang Shopee. Ảnh sản phẩm cần đi kèm tên và giá tiền ngay bên dưới để khách hàng biết họ đang xem cái gì và giá bao nhiêu.
+VD2 (Biểu đồ): Một biểu đồ cột thể hiện điểm trung bình của lớp 66KTPM1. Thẻ <figcaption> sẽ ghi: "Hình 1: Thống kê kết quả học tập kỳ 1", giúp giảng viên dễ theo dõi khi đọc báo cáo.
