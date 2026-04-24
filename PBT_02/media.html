@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang giới thiệu sản phẩm - Trần Văn Hiếu - 66KTPM1</title>
+    <style>
+        
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 900px; margin: auto; }
+        section { margin-bottom: 40px; }
+        .gallery { display: flex; gap: 20px; flex-wrap: wrap; }
+        figure { margin: 0; width: 280px; }
+        
+        img, video, iframe { max-width: 100%; height: auto; border-radius: 8px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <svg width="50" height ="50">
+            <rect width="50" height="50" fill="blue" />
+            <text x="10" y="30" font-size="30" fill="black">H</text>
+        </svg>
+        <h1>Giới thiệu Multimedia iphone 16 Pro</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2> Thư viện hình ảnh</h2>
+            <div class="gallery">
+                <figure>
+                    <img src="screenshots/iphone16.jpg" 
+                         alt="iPhone 16 Pro màu Titan Sa Mạc nhìn từ góc nghiêng" 
+                         loading="lazy" style="max-width: 100%; height: auto;">
+                    <figcaption>Màu Titan Sa Mạc sang trọng</figcaption>
+                </figure>
+
+                <figure>
+                    <img src="screenshots/camera16.jpg" 
+                         alt="Cận cảnh cụm camera 48MP trên iPhone 16 Pro" 
+                         loading="lazy" style="max-width: 100%; height: auto;">
+                    <figcaption>Cụm camera Iphone 16 Pro 48MP</figcaption>
+                </figure>
+
+                <figure>
+                    <img src="screenshots/manhinhip16.jpg" 
+                         alt="Màn hình LTPO Super Retina XDR hiển thị sắc nét" 
+                         loading="lazy" style="max-width: 100%; height: auto;">
+                    <figcaption>Màn hình Pro 120Hz mượt mà</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section>
+            <h2>Video đánh giá từ YouTube</h2>
+            <iframe width="560" height="315" 
+                    src="https://www.youtube.com/" 
+                    title="YouTube " frameborder="0" 
+                    allowfullscreen>
+            </iframe>
+        </section>
+
+        <section>
+            <h2>Video giới thiệu tính năng </h2>
+            <video controls poster="screenshots/poster-video.jpg" width="640">
+                <source src="iphone.mp4" type="video/mp4">
+                <source src="iphone.webm" type="video/webm">
+               
+            </video>
+        </section>
+
+        <section>
+            <h2>Nhạc nền giới thiệu sản phẩm</h2>
+            <audio controls>
+                <source src="amnhac.mp3" type="audio/mpeg">
+                
+            </audio>
+        </section>
+    </main>
+
+    <hr>
+    <footer>
+        <p>2026 - Trần Văn Hiếu - Mã SV: 2451170893 - Lớp 66KTPM1</p>
+        <p>Đại học Thủy Lợi - Khoa Công nghệ thông tin</p>
+    </footer>
+
+</body>
+</html>

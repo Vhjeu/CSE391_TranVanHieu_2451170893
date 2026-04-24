@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán đơn hàng - Trần Văn Hiếu - 66KTPM1</title>
+</head>
+<body>
+
+    <header>
+        <svg width="50" height="50">
+            <rect width="50" height="50" fill="blue" />
+            <text x="15" y="35" fill="white" font-weight="bold">H</text>
+        </svg>
+        <h1>Trang Thanh Toán Đơn Hàng</h1>
+    </header>
+
+    <main>
+        <section>
+            <label for="tim_kiem">Tìm nhanh sản phẩm khác:</label>
+            <input type="text" id="tim_kiem" list="ds_san_pham" placeholder="Gõ tên sản phẩm...">
+            <datalist id="ds_san_pham">
+                <option value="iPhone 16 Pro Max">
+                <option value="Sạc dự phòng ">
+                <option value="Tai nghe  ">
+                <option value="kính thực tế ảo "></option>
+                <option value="Bàn phím cơ "></option>
+            </datalist>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>1. Giỏ hàng của bạn</h2>
+            <table border="1" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Sản phẩm</th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>iPhone 20 Pro</td>
+                        <td>30.000.000đ</td>
+                        <td>1</td>
+                        <td>30.000.000đ</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Ốp lưng </td>
+                        <td>100.000đ</td>
+                        <td>2</td>
+                        <td>200.000đ</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Dán màn hình</td>
+                        <td>200.000đ</td>
+                        <td>1</td>
+                        <td>200.000đ</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" style="text-align: right; font-weight: bold;">Tổng cộng:</td>
+                        <td>
+                            <output name="tong_tien">31.200.000đ</output>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <form action="#" method="POST">
+            <section>
+                <h2>2. Phương thức thanh toán</h2>
+                <input type="radio" id="cod" name="pt_thanh_toan" value="cod" checked>
+                <label for="cod">Thanh toán khi nhận hàng (COD)</label><br>
+
+                <input type="radio" id="bank" name="pt_thanh_toan" value="bank">
+                <label for="bank">Chuyển khoản ngân hàng</label><br>
+
+                <input type="radio" id="vi" name="pt_thanh_toan" value="vi">
+                <label for="vi">Ví điện tử (Momo/ZaloPay)</label>
+                
+                <br><br>
+                <label for="ma_giam_gia">Mã giảm giá:</label>
+                <input type="text" id="ma_giam_gia" name="ma_giam_gia" 
+                       pattern="SALE[0-9]{4}" 
+                       title="Mã phải có dạng SALE + 4 chữ số (VD: SALE2026)" 
+                       placeholder="SALE2026">
+                
+                <br><br>
+                <label for="ghi_chu">Ghi chú đơn hàng:</label><br>
+                <textarea id="ghi_chu" name="ghi_chu" rows="3" cols="40" placeholder="Lưu ý"></textarea>
+            </section>
+
+            <section>
+                <h2>3. Thông tin giao hàng</h2>
+                <label for="ngay_giao">Ngày giao hàng mong muốn:</label>
+                <input type="date" id="ngay_giao" name="ngay_giao" min="2026-04-25" required>
+                
+                <br><br>
+                <label for="khung_gio">Khung giờ nhận hàng:</label>
+                <select id="khung_gio" name="khung_gio">
+                    <option value="sang">Sáng (8h - 12h)</option>
+                    <option value="chieu">Chiều (14h - 18h)</option>
+                    <option value="toi">Tối (18h - 21h)</option>
+                </select>
+
+                <br>
+            </section>
+            
+            <section>
+                <br>
+                <label for="thoi_gian">Thời gian giao hàng mong muốn (1 đến 7 ngày):</label><br>
+                <span>1 ngày</span>
+                <input type="range" id="thoi_gian" name="thoi_gian" min="1" max="7" step="1" value="3">
+                <span>7 ngày</span>
+            </section>
+
+            <br><br>
+            <button type="submit" aria-label="Xác nhận đặt hàng">ĐẶT HÀNG</button>
+        </form>
+    </main>
+
+    <hr>
+    <footer>
+        <p>Trần Văn Hiếu - Lớp 66KTPM1</p>
+    </footer>
+
+</body>
+</html>
