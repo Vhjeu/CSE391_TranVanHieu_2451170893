@@ -47,10 +47,10 @@ screenshot: ![alt text](screenshots/CauA2.png)
 
 Câu A3: Nội dung: chương 11
 1. Trường hợp 1: content-box 
-Chiều rộng hiển thị thực tế:
+- Chiều rộng hiển thị thực tế:
 400 (width) + 20 (padding trái) + 20 (padding phải) + 5 (border trái) + 5 (border phải) = 450px
 
-Không gian chiếm trên trang:
+- Không gian chiếm trên trang:
 450 (chiều rộng thực tế) + 10 (margin trái) + 10 (margin phải) = 470px
 
 2. Trường hợp 2: border-box
@@ -70,3 +70,23 @@ Phần nâng cao: Margin âm
 - Nếu .box-a có margin-bottom: -10px và .box-b có margin-top: 40px:
 - Khoảng cách thực tế: 30px
 --> Khi kết hợp giữa margin dương và margin âm, khoảng cách sẽ được tính bằng tổng đại số: 40px + (-10px) = 30px.
+
+Câu A4:
+1. Tính toán điểm Specificity (ID, Class, Element)
+- Điểm số được tính theo cấu trúc: (Số lượng ID, Số lượng Class/Attribute, Số lượng Element).
++ Rule A (p): Điểm là (0, 0, 1). Vì chỉ có duy nhất 1 thẻ element.
++ Rule B (.price): Điểm là (0, 1, 0). Vì chỉ có duy nhất 1 class selector.
++ Rule C (#main-price): Điểm là (1, 0, 0). Vì có 1 ID selector (ID luôn có điểm rất cao).
++ Rule D (p.price): Điểm là (0, 1, 1). Vì bao gồm 1 class và 1 element selector cộng lại.
+
+2. Xác định màu sắc hiển thị
+Kết quả: Phần tử sẽ có màu Đỏ .
+--> Trình duyệt thực hiện so sánh điểm Specificity từ trái qua phải (từ bậc ID đến bậc Element). Rule C có 1 điểm ở cột ID, trong khi tất cả các quy tắc còn lại đều bằng 0 ở cột này. Trong CSS, một ID Selector luôn có quyền ưu tiên cao hơn bất kỳ số lượng class hay thẻ element nào cộng lại. Do đó, màu của Rule C sẽ được áp dụng.
+
+3. Trường hợp thêm Inline Style (style="color: orange;")
+Kết quả: Phần tử sẽ chuyển sang màu Cam .
+--> Theo quy tắc phân tầng (Cascade), Inline CSS (viết trực tiếp trong thẻ HTML) có độ ưu tiên cao hơn tất cả các bộ chọn trong file CSS bên ngoài (External) hoặc thẻ style (Internal), bao gồm cả bộ chọn ID.
+
+4. Trường hợp Rule A thêm !important
+Kết quả: Phần tử sẽ có màu Đen .
+-->Từ khóa !important là một chỉ thị đặc biệt trong CSS dùng để phá vỡ mọi quy tắc ưu tiên thông thường. Khi p { color: black !important; } được khai báo, nó sẽ ghi đè lên cả ID selector và cả Inline style để áp dụng màu đen cho phần tử. Tuy nhiên, trong lập trình phần mềm, chúng mình nên hạn chế dùng cách này vì nó gây khó khăn cho việc bảo trì code sau này.
