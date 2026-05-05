@@ -102,4 +102,46 @@ Câu B1:
 — giải thích HTML không thể validate confirm password:
 + Việc xác nhận mật khẩu là một phép toán so sánh cần ngôn ngữ lập trình (mà Html không phải ngôn ngữ lập trình). HTML là một ngôn ngữ đánh dấu, nó không có các biến để lưu trữ giá trị tạm thời và cũng không có các toán tử logic để thực hiện việc đối chiếu giữa hai trường dữ liệu.
 
-Câu B2:
+______________________________________________________________________________________________
+Phần C:
+Câu C1:
+Lỗi 1: Dòng 1 — Thẻ <form> thiếu thuộc tính action và quan trọng nhất là method="POST". Nếu để mặc định (GET), mật khẩu sẽ hiện thẳng trên thanh địa chỉ URL.
+--> Sửa: <form action="#" method="POST">
+
+Lỗi 2: Dòng 2 — Input "Tên" không có <label for="...">, vi phạm accessibility (người dùng khiếm thị không biết đây là ô gì).
+--> Sửa: <label for="name">Tên:</label> <input type="text" id="name" name="ho_ten" required>
+
+Lỗi 3: Toàn bộ form — Các ô input đều thiếu thuộc tính name. Nếu không có name, khi nhấn gửi, server sẽ không nhận được bất kỳ dữ liệu nào.
+--> Sửa: Thêm name="email", name="mat_khau", name="phone", v.v. vào từng input.
+
+Lỗi 4: Dòng 4, 6, 7 — Dùng placeholder thay thế cho <label>. Placeholder sẽ biến mất khi gõ, gây khó khăn cho người dùng và trình đọc màn hình.
+--> Sửa: Thêm <label> tương ứng cho mỗi ô Email và Password.
+
+Lỗi 5: Dòng 9 — Ô nhập số điện thoại dùng type="text". Điều này không kích hoạt bàn phím số trên điện thoại di động.
+--> Sửa: <label for="tel">Phone:</label> <input type="tel" id="tel" name="so_dien_thoai" pattern="[0-9]{10}">
+
+Lỗi 6: Dòng 11 — Các thẻ <option> trong <select> thiếu thuộc tính value. Khi submit, server có thể không nhận được giá trị chính xác.
+--> Sửa: <option value="hn">Hà Nội</option>
+
+Lỗi 7: Dòng 16 — Thẻ <label> ghi "Tôi đồng ý" nhưng bên trong không hề có ô <input type="checkbox">. User không thể tích chọn.
+--> Sửa: <label><input type="checkbox" name="terms" required> Tôi đồng ý điều khoản</label>
+
+Lỗi 8: Toàn bộ form — Thiếu các thuộc tính validation cơ bản như required. Người dùng có thể nhấn Gửi ngay cả khi form trống không.
+--> Sửa: Thêm thuộc tính required vào các trường bắt buộc như Tên, Email, Mật khẩu.
+
+Câu C2:
+- Viết Pattern Regex:
+CMND/CCCD (12 chữ số): pattern="[0-9]{12}"
+Số tài khoản (10-15 chữ số): pattern="[0-9]{10,15}"
+
+- Đánh giá tính an toàn của HTML5 Validation: KHÔNG đủ an toàn cho ứng dụng ngân hàng.
+--> Giải thích: Người dùng có thể dễ dàng dùng công cụ "Inspect" để xóa bỏ các thuộc tính validation trên trình duyệt hoặc sử dụng các công cụ gửi request trực tiếp (như Postman) để vượt qua lớp kiểm tra này. HTML5 chỉ giúp cải thiện trải nghiệm người dùng (UX) chứ không có giá trị bảo mật thực thụ.
+
+- 3 loại Validation phải dùng JavaScript:
++ So sánh chéo (Comparison): Kiểm tra Mật khẩu và Xác nhận mật khẩu có trùng khớp không.
+Kiểm tra tính duy nhất (Uniqueness): Gọi API để kiểm tra Email/Số điện thoại đã tồn tại trong hệ thống chưa.
++ Logic phụ thuộc (Conditional Validation): Yêu cầu nhập thêm thông tin chỉ khi một lựa chọn nhất định được tích vào.
+
+- 2 rủi ro bảo mật nếu thiếu Backend Validation:
++ Tấn công tiêm nhiễm (Injection): Kẻ xấu có thể gửi mã độc (SQL Injection/XSS) thẳng vào database nếu server tin tưởng tuyệt đối vào dữ liệu từ frontend.
++ Sai lệch dữ liệu (Data Integrity): Dữ liệu rác hoặc không đúng định dạng sẽ lọt vào hệ thống, gây lỗi logic nghiêm trọng trong các giao dịch tài chính.
