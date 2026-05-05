@@ -44,3 +44,29 @@ Câu A2:
 7. a[href="/"]         --> chọn: Home         
 8. .top-bar.dark h1     --> chọn: ShopTLU         
 screenshot: ![alt text](screenshots/CauA2.png)
+
+Câu A3: Nội dung: chương 11
+1. Trường hợp 1: content-box 
+Chiều rộng hiển thị thực tế:
+400 (width) + 20 (padding trái) + 20 (padding phải) + 5 (border trái) + 5 (border phải) = 450px
+
+Không gian chiếm trên trang:
+450 (chiều rộng thực tế) + 10 (margin trái) + 10 (margin phải) = 470px
+
+2. Trường hợp 2: border-box
+Trong mô hình border-box, thuộc tính width đã bao gồm cả content, padding và border. Đây là cách tính phổ biến giúp chúng ta kiểm soát kích thước chuẩn xác hơn.
+
+- Chiều rộng hiển thị = 400px
+- Kích thước content thực tế:
+400 (tổng width) - 20 (padding trái) - 20 (padding phải) - 5 (border trái) - 5 (border phải) = 350px
+- Không gian chiếm trên trang:
+400 (chiều rộng thực tế) + 10 (margin trái) + 10 (margin phải) = 420px
+
+3. Trường hợp 3: Margin collapse 
+Khoảng cách giữa box-a và box-b: 40px
+--> Trong CSS, khi hai lề dọc (top và bottom) của hai khối kề nhau, chúng không cộng dồn (25 + 40 = 65) mà sẽ xảy ra hiện tượng Margin Collapse. Trình duyệt sẽ so sánh và lấy giá trị lớn nhất giữa hai lề để áp dụng. Ở đây, 40px lớn hơn 25px nên khoảng cách là 40px.
+
+Phần nâng cao: Margin âm
+- Nếu .box-a có margin-bottom: -10px và .box-b có margin-top: 40px:
+- Khoảng cách thực tế: 30px
+--> Khi kết hợp giữa margin dương và margin âm, khoảng cách sẽ được tính bằng tổng đại số: 40px + (-10px) = 30px.
