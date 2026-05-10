@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Model Lab</title>
+    <link rel="stylesheet" href="boxmodel.css">
+</head>
+<body>
+
+    <h2>Phần 1: Chứng minh content-box vs border-box</h2>
+    <div class="box-container">
+        <div class="box box-content">
+            Hộp 1<br>(content-box)
+        </div>
+
+        <div class="box box-border">
+            Hộp 2<br>(border-box)
+        </div>
+    </div>
+
+    <h2>Phần 2: Layout 3 cột (Container 1000px)</h2>
+    
+    <h3>Trường hợp dùng border-box (Vừa vặn)</h3>
+    <div class="container border-box-demo">
+        <div class="col left">Cột trái (250px)</div>
+        <div class="col center">Cột giữa (500px)</div>
+        <div class="col right">Cột phải (250px)</div>
+    </div>
+
+    <h3>Trường hợp KHÔNG dùng border-box (Bị tràn khung)</h3>
+    <div class="container content-box-demo">
+        <div class="col left">Cột trái (250px)</div>
+        <div class="col center">Cột giữa (500px)</div>
+        <div class="col right">Cột phải (250px)</div>
+    </div>
+
+</body>
+</html>

@@ -90,3 +90,25 @@ Kết quả: Phần tử sẽ chuyển sang màu Cam .
 4. Trường hợp Rule A thêm !important
 Kết quả: Phần tử sẽ có màu Đen .
 -->Từ khóa !important là một chỉ thị đặc biệt trong CSS dùng để phá vỡ mọi quy tắc ưu tiên thông thường. Khi p { color: black !important; } được khai báo, nó sẽ ghi đè lên cả ID selector và cả Inline style để áp dụng màu đen cho phần tử. Tuy nhiên, trong lập trình phần mềm, chúng mình nên hạn chế dùng cách này vì nó gây khó khăn cho việc bảo trì code sau này.
+
+__________________________________________________________________________
+Phần B:
+Câu B1:
+- 5 loại Selector đã sử dụng trong file style.css:
+1. **Element Selector (Bộ chọn thẻ):** - VD: `body { ... }`, `header { ... }`, `table { ... }` 
+2. **Class Selector (Bộ chọn lớp):** - VD: `.active { ... }` (nằm trong `nav a.active`)
+3. **ID Selector (Bộ chọn định danh):** - VD: `#skills-table { ... }` 
+4. **Descendant Selector (Bộ chọn con cháu):** - VD: `nav a { ... }`
+5. **Pseudo-class Selector (Bộ chọn trạng thái / lớp giả):** - VD 1: `nav a:hover { ... }` và `tr:hover { ... }` (Bắt trạng thái rê chuột).
+
+Câu B2:
+- Hộp 1 (content-box): Chiều rộng thực tế = 300.667px
+![alt text](screenshots/hop1.png)
+- Hộp 2 (border-box): Chiều rộng thực tế = 259.334px 
+![alt text](screenshots/hop2.png)
+- Giải thích sự khác biệt:
+Mặc dù cả 2 hộp đều bị Flexbox ép nhỏ lại do thiếu diện tích màn hình, nhưng sự khác biệt về Box Model vẫn rất rõ rệt:
++ Ở Hộp 1 (content-box): Thuộc tính width ưu tiên giữ không gian cho vùng nội dung (content) to nhất có thể (251.333px), sau đó mới cộng dồn padding và border ra bên ngoài.
++ Ở Hộp 2 (border-box): Trình duyệt ép padding và border vào *bên trong* tổng diện tích của hộp, khiến vùng nội dung (content) bắt buộc phải co hẹp lại chỉ còn 210px.
+
+
