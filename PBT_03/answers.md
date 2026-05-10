@@ -102,6 +102,7 @@ Câu B1:
 5. **Pseudo-class Selector (Bộ chọn trạng thái / lớp giả):** - VD 1: `nav a:hover { ... }` và `tr:hover { ... }` (Bắt trạng thái rê chuột).
 
 Câu B2:
+* Phần1:
 - Hộp 1 (content-box): Chiều rộng thực tế = 300.667px
 ![alt text](screenshots/hop1.png)
 - Hộp 2 (border-box): Chiều rộng thực tế = 259.334px 
@@ -110,5 +111,29 @@ Câu B2:
 Mặc dù cả 2 hộp đều bị Flexbox ép nhỏ lại do thiếu diện tích màn hình, nhưng sự khác biệt về Box Model vẫn rất rõ rệt:
 + Ở Hộp 1 (content-box): Thuộc tính width ưu tiên giữ không gian cho vùng nội dung (content) to nhất có thể (251.333px), sau đó mới cộng dồn padding và border ra bên ngoài.
 + Ở Hộp 2 (border-box): Trình duyệt ép padding và border vào *bên trong* tổng diện tích của hộp, khiến vùng nội dung (content) bắt buộc phải co hẹp lại chỉ còn 210px.
+
+Câu B3:
+
+- 10 rules + specificity score (ID, Class, Element):
+1. `*` -> Specificity: 0, 0, 0
+2. `p` -> Specificity: 0, 0, 1
+3. `body p` -> Specificity: 0, 0, 2
+4. `.text` -> Specificity: 0, 1, 0
+5. `p.text` -> Specificity: 0, 1, 1
+6. `.text.highlight` -> Specificity: 0, 2, 0
+7. `p.text.highlight` -> Specificity: 0, 2, 1
+8. `#demo` -> Specificity: 1, 0, 0
+9. `p#demo` -> Specificity: 1, 0, 1
+10. `#demo.text.highlight` -> Specificity: 1, 2, 0
+
+- Element cuối cùng hiển thị màu gì? Tại sao?**
+- **Màu hiển thị:** Màu vàng (`#eab308` - tương ứng với rule số 10).
+- **Tại sao:** Trình duyệt áp dụng màu của rule có điểm Specificity cao nhất. Ở đây, rule `#demo.text.highlight` chứa 1 ID và 2 Classes, cho ra điểm số cao nhất là `1,2,0`. Nó đánh bại hoàn toàn các rules còn lại, kể cả rule có dùng `#demo` đơn thuần (`1,0,0`).
+**3. Ảnh Screenshot kết quả:**
+![alt text](screenshots/baib3.png)
+
+**4. 
+- **Kết quả:** Không thay đổi (chữ vẫn giữ màu vàng).
+- **Giải thích:** Trong nguyên lý của CSS (Cascading Style Sheets), **Specificity (Độ đặc tả) luôn được ưu tiên xét trước**. Tính chất Cascading (ghi đè theo thứ tự từ trên xuống dưới) chỉ được áp dụng làm tiêu chí phụ khi có hai hoặc nhiều rules có **cùng mức điểm Specificity**. Vì rule số 10 có điểm số tuyệt đối cao nhất (độc tôn), nên dù ông viết nó ở dòng đầu tiên hay dòng cuối cùng của file CSS, trình duyệt vẫn sẽ ưu tiên chọn nó.
 
 
