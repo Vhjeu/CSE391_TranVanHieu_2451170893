@@ -95,3 +95,11 @@ Ví dụ lưới sản phẩm: Hiển thị 4 cột.
 Kích thước pixel: ≥ 1200px (xl) và ≥ 1400px (xxl)
 Thiết bị đại diện: Máy tính để bàn màn hình lớn (Large Desktops).
 Ví dụ lưới sản phẩm: Hiển thị 5 đến 6 cột.
+
+Câu A3:
+Chiều rộng màn hình.container width
+375px (iPhone SE)   100%
+600px               540px
+800px               720px
+1000px              960px
+1400px              1140px
