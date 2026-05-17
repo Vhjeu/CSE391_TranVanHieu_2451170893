@@ -79,3 +79,24 @@ Plaintext
 | [   Item 4   ]   [   Item 5   ]   [   Item 6   ] |
 | [   Item 7   ]   [   Trống    ]   [   Trống    ] |
 +-------------------------------------------------------+
+
+__________________________________________________________________________________________
+Câu C1:
+1. Navigation bar ngang (logo + menu + buttons)
+Lựa chọn: Flexbox
+Giải thích: Navbar là một bố cục 1 chiều (trải dài theo một hàng ngang). Flexbox cực kỳ mạnh mẽ trong việc căn chỉnh các phần tử trên cùng một hàng (align-items: center để căn giữa chiều dọc) và phân bổ không gian trống (justify-content: space-between để đẩy logo sang trái, menu ra giữa, nút sang phải).
+
+2. Lưới ảnh Instagram (3 cột đều nhau, số ảnh không biết trước)
+Lựa chọn: Grid
+Giải thích: Đây là bố cục 2 chiều phức tạp (có cả hàng và cột). Chỉ với một dòng grid-template-columns: repeat(3, 1fr), Grid sẽ tự động chia 3 cột đều tăm tắp. Khi ảnh đổ về nhiều, Grid tự động tạo ra các hàng mới mà vẫn đảm bảo mọi ô ảnh thẳng hàng với nhau theo cả 2 trục (điều mà Flexbox phải dùng width/margin tính toán rất vất vả).
+
+3. Layout blog: main content + sidebar
+Lựa chọn: Grid (Có thể dùng Flexbox nhưng Grid tối ưu hơn)
+Giải thích: Bố cục tổng thể của một trang web (Macro-layout) là thế mạnh tuyệt đối của Grid. Nó giúp ông kiểm soát không gian rất rõ ràng: grid-template-columns: 1fr 300px (Main content tự co giãn, Sidebar giữ cố định 300px). Nếu dùng Grid, code HTML của ông sẽ rất phẳng và sạch.
+
+4. Footer với 4 cột thông tin (Về chúng tôi, Liên kết, Hỗ trợ, Liên hệ)
+Lựa chọn: Grid * Giải thích: Tương tự như lưới Instagram, đây là việc chia không gian thành các cột tỷ lệ đều nhau. Dùng grid-template-columns: repeat(4, 1fr) kết hợp với gap sẽ giúp 4 cột hiển thị hoàn hảo. Khi xuống màn hình mobile, ông chỉ cần đổi lại thành repeat(2, 1fr) hoặc 1fr là nó tự động xếp lại cực mượt.
+
+5. Card sản phẩm (ảnh trên, text giữa, nút dưới — nút luôn dính đáy)
+Lựa chọn: Flexbox
+Giải thích: Card sản phẩm là một bố cục 1 chiều (theo chiều dọc từ trên xuống dưới). Sử dụng display: flex; flex-direction: column;. Ưu điểm tuyệt đối của Flexbox ở đây là thuộc tính margin-top: auto gán cho nút bấm, nó sẽ tự động ăn trọn không gian trống còn lại và đẩy cái nút dính chặt xuống đáy card, bất chấp tên sản phẩm phía trên dài hay ngắn.
