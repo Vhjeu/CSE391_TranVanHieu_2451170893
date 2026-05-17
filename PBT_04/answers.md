@@ -100,3 +100,69 @@ Lựa chọn: Grid * Giải thích: Tương tự như lưới Instagram, đây l
 5. Card sản phẩm (ảnh trên, text giữa, nút dưới — nút luôn dính đáy)
 Lựa chọn: Flexbox
 Giải thích: Card sản phẩm là một bố cục 1 chiều (theo chiều dọc từ trên xuống dưới). Sử dụng display: flex; flex-direction: column;. Ưu điểm tuyệt đối của Flexbox ở đây là thuộc tính margin-top: auto gán cho nút bấm, nó sẽ tự động ăn trọn không gian trống còn lại và đẩy cái nút dính chặt xuống đáy card, bất chấp tên sản phẩm phía trên dài hay ngắn.
+
+Câu C2:
+Lỗi 1: Cards không đều chiều cao — nút "Mua" bị nhảy lên/xuống
+Nguyên nhân: .card-container dùng display: flex khiến các .card tự động kéo dài bằng nhau theo chiều cao (nhờ mặc định align-items: stretch). Tuy nhiên, bản thân các phần tử bên trong .card (ảnh, h3, nút) vẫn hiển thị theo dạng block bình thường từ trên xuống. Vì độ dài text khác nhau, nút "Mua" sẽ bị lệch lên/xuống chứ không bám sát đáy.
+
+Cách sửa: Biến chính .card thành một flex container theo chiều dọc (column), sau đó dùng "phép thuật" margin-top: auto cho nút bấm để đẩy nó bám chặt xuống đáy.
+
+Code sửa:
+CSS
+.card-container { 
+    display: flex; 
+    flex-wrap: wrap; 
+}
+.card { 
+    width: 30%; 
+    margin: 1.5%; 
+    display: flex;
+    flex-direction: column;
+}
+.card img { width: 100%; }
+.card h3 { font-size: 18px; }
+.card .btn { 
+    padding: 10px; 
+    /* THÊM DÒNG NÀY ĐỂ ĐẨY NÚT XUỐNG ĐÁY */
+    margin-top: auto; 
+}
+
+Lỗi 2: Item không nằm giữa container (dính góc trái trên)
+Nguyên nhân: Khai báo display: flex sẽ đưa thẻ .hero về cơ chế Flexbox, nhưng mặc định nó sẽ xếp phần tử con bắt đầu từ lề trái (flex-start) và lề trên (flex-start). Thuộc tính text-align: center chỉ có tác dụng căn giữa đoạn text bên trong khối .hero-content, chứ không thể di chuyển vị trí của chính khối hộp đó ra giữa .hero được.
+
+Cách sửa: Bỏ text-align (nếu không cần căn giữa chữ) và sử dụng hai thuộc tính căn trục quyền lực nhất của Flexbox là justify-content (trục ngang) và align-items (trục dọc).
+
+Code sửa:
+CSS
+.hero {
+    height: 100vh;
+    display: flex;
+    /* THÊM 2 DÒNG NÀY ĐỂ CĂN GIỮA TUYỆT ĐỐI KHỐI CON */
+    justify-content: center;
+    align-items: center;
+}
+.hero-content {
+    /* Giữ lại nếu muốn chữ bên trong cũng nằm giữa */
+    text-align: center; 
+}
+
+Lỗi 3: Sidebar bị co lại khi content quá dài
+Nguyên nhân: Trong Flexbox, mọi phần tử con đều có một thuộc tính ngầm định là flex-shrink: 1 (cho phép co rút). Khi .content chứa quá nhiều dữ liệu và cần không gian để hiển thị, Flexbox sẽ tự động "bóp" kích thước của .sidebar lại để nhường chỗ, khiến .sidebar không giữ được kích thước 250px như khai báo ban đầu.
+
+Code sửa:
+CSS
+.layout { 
+    display: flex; 
+}
+.sidebar { 
+    /* THAY THẾ width: 250px; BẰNG: */
+    flex: 0 0 250px; /* Không giãn (0), không co (0), kích thước cứng (250px) */
+    
+    /* Hoặc có thể viết:
+       width: 250px;
+       flex-shrink: 0; 
+    */
+}
+.content { 
+    flex: 1; /* Tự động ăn hết phần không gian còn lại */
+}
