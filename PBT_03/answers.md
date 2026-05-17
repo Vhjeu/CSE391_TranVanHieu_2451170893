@@ -136,4 +136,20 @@ Câu B3:
 - **Kết quả:** Không thay đổi (chữ vẫn giữ màu vàng).
 - **Giải thích:** Trong nguyên lý của CSS (Cascading Style Sheets), **Specificity (Độ đặc tả) luôn được ưu tiên xét trước**. Tính chất Cascading (ghi đè theo thứ tự từ trên xuống dưới) chỉ được áp dụng làm tiêu chí phụ khi có hai hoặc nhiều rules có **cùng mức điểm Specificity**. Vì rule số 10 có điểm số tuyệt đối cao nhất (độc tôn), nên dù ông viết nó ở dòng đầu tiên hay dòng cuối cùng của file CSS, trình duyệt vẫn sẽ ưu tiên chọn nó.
 
+______________________________________________________________________________________
+Câu C2:
+1. "Sản phẩm A" (h2) có font-size = 20px và color = green
+- Giải thích font-size: Phần tử này chịu ảnh hưởng kế thừa từ body (16px) và .container (14px). Tuy nhiên, nó bị tác động trực tiếp bởi rule .card .title { font-size: 20px; }. Do CSS ưu tiên thuộc tính được khai báo trực tiếp cho phần tử hơn là thuộc tính kế thừa, nên font-size chốt ở 20px.
+- Giải thích color: Phần tử này được target bởi 2 rules trực tiếp là #featured .title { color: red; } (Specificity: 1,1,0) và .highlight { color: green !important; } (Specificity: 0,1,0). Theo lý thuyết, ID có điểm cao hơn Class, nhưng do class .highlight có chứa từ khóa !important, nó phá vỡ mọi quy tắc tính điểm thông thường và đè bẹp tất cả. Do đó, màu chữ là green.
+
+2. "Mô tả sản phẩm" (p trong card featured) có color = blue
+- Giải thích color: Phần tử <p> này được target bởi rule .card p { color: inherit; }. Từ khóa inherit ép phần tử này bắt buộc phải lấy giá trị màu sắc từ thẻ cha trực tiếp của nó. Thẻ cha của nó là <div class="card" id="featured">. Thẻ cha này nhận thuộc tính màu từ rule .card { color: blue; }. Do đó, thẻ <p> kế thừa màu blue.
+
+3. "Sản phẩm B" (h2) có font-size = 20px và color = blue
+- Giải thích font-size: Tương tự như sản phẩm A, nó bị target trực tiếp bởi rule .card .title { font-size: 20px; }. Giá trị là 20px.
+
+- Giải thích color: Không có rule CSS nào quy định trực tiếp màu sắc cho thẻ <h2> này (nó không có class .highlight và thẻ cha không có ID #featured). Theo cơ chế tự động kế thừa (inheritance) của CSS đối với thuộc tính text, nó sẽ lấy màu từ thẻ cha gần nhất có khai báo màu. Thẻ cha .card có color: blue;, nên nó mang màu blue.
+
+4. "Mô tả sản phẩm B" (p.highlight) có color = green
+- Giải thích color: Phần tử này bị tranh chấp bởi 2 rules khai báo trực tiếp: .card p { color: inherit; } (sẽ lấy màu blue từ cha) và .highlight { color: green !important; }. Một lần nữa, "át chủ bài" !important xuất hiện trong rule của .highlight, đánh bại mọi đối thủ khác để giành quyền áp dụng màu green.
 
