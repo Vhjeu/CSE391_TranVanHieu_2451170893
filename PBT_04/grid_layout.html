@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Grid Layout</title>
+    <link rel="stylesheet" href="grid.css">
+</head>
+<body>
+
+    <div class="grid-container">
+
+        <header class="header">
+            <div class="logo">ShopDev</div>
+            <input type="text" placeholder="Tìm kiếm sản phẩm..." class="search-bar">
+            <div class="cart">🛒 Giỏ hàng</div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-card-featured">
+                <h2>Siêu Sale Mùa Hè</h2>
+                <p>Giảm giá lên đến 50% cho tất cả thiết bị điện tử.</p>
+                <button>Săn Deal Ngay</button>
+            </div>
+            <div class="hero-card-small">
+                <h3>Voucher 100K</h3>
+                <p>Cho đơn từ 500K</p>
+            </div>
+        </section>
+
+        <aside class="sidebar">
+            <h3>Bộ lọc sản phẩm</h3>
+            <div class="filter-group">
+                <h4>Danh mục</h4>
+                <label><input type="checkbox"> Laptop</label><br>
+                <label><input type="checkbox"> Bàn phím</label><br>
+                <label><input type="checkbox"> Chuột Gaming</label>
+            </div>
+            <div class="filter-group">
+                <h4>Khoảng giá</h4>
+                <label><input type="radio" name="price"> Dưới 1 triệu</label><br>
+                <label><input type="radio" name="price"> 1 - 5 triệu</label><br>
+                <label><input type="radio" name="price"> Trên 5 triệu</label>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="product-card">
+                <img src="https://picsum.photos/200/150?random=1" alt="Product">
+                <h4>Bàn phím cơ XYZ</h4>
+                <p class="price">1.500.000đ</p>
+            </div>
+            <div class="product-card">
+                <img src="https://picsum.photos/200/150?random=2" alt="Product">
+                <h4>Chuột Logitech G</h4>
+                <p class="price">850.000đ</p>
+            </div>
+            <div class="product-card">
+                <img src="https://picsum.photos/200/150?random=3" alt="Product">
+                <h4>Màn hình Dell 27"</h4>
+                <p class="price">4.200.000đ</p>
+            </div>
+            <div class="product-card">
+                <img src="https://picsum.photos/200/150?random=4" alt="Product">
+                <h4>Tai nghe Sony</h4>
+                <p class="price">2.100.000đ</p>
+            </div>
+            <div class="product-card">
+                <img src="https://picsum.photos/200/150?random=5" alt="Product">
+                <h4>Webcam HD</h4>
+                <p class="price">900.000đ</p>
+            </div>
+            <div class="product-card">
+                <img src="https://picsum.photos/200/150?random=6" alt="Product">
+                <h4>Lót chuột RGB</h4>
+                <p class="price">300.000đ</p>
+            </div>
+        </main>
+
+        <aside class="ads">
+            <div class="ad-banner">
+                <img src="https://picsum.photos/180/400?random=7" alt="Ads Placeholder">
+                <p>Quảng cáo tài trợ</p>
+            </div>
+        </aside>
+
+        <footer class="footer">
+            <p>&copy; 2026 ShopDev E-Commerce. Code by Hieu.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

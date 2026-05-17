@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Positioning Playground</title>
+    <link rel="stylesheet" href="positioning.css">
+</head>
+<body>
+
+    <header class="fixed-header">
+        <div class="logo">Hiếu </div>
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <main class="layout-container">
+        <aside class="sticky-sidebar">
+            <h3>Danh mục</h3>
+            <ul>
+                <li>Laptop</li>
+                <li>Điện thoại</li>
+                <li>Phụ kiện</li>
+            </ul>
+            <p>(Cuộn trang để thấy sidebar bị ghim lại)</p>
+        </aside>
+
+        <section class="content">
+            <h2>Sản phẩm nổi bật</h2>
+            
+            <div class="product-card">
+                <div class="badge-hot">HOT</div>
+                
+                <img src="https://picsum.photos/250/150?random=1" alt="Product" class="product-img">
+                <h3 class="product-title">Bàn phím cơ</h3>
+                <p class="product-desc">Bàn phím xịn xò cho dân code.</p>
+                <button class="buy-btn">Mua ngay</button>
+            </div>
+
+            <div class="dummy-content">
+                <p>Nội dung kéo dài trang...</p>
+                <p>Nội dung kéo dài trang...</p>
+                <p>Nội dung kéo dài trang...</p>
+                <p>Nội dung kéo dài trang...</p>
+            </div>
+        </section>
+    </main>
+
+    <button class="scroll-top-btn" onclick="window.scrollTo(0,0)">↑</button>
+
+</body>
+</html>
