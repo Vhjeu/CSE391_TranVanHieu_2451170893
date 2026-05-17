@@ -69,3 +69,29 @@ CSS
 + Tối ưu hiệu suất (Performance) cho thiết bị di động: Thiết bị di động thường có cấu hình phần cứng yếu hơn và tốc độ mạng chậm hơn PC. Với Mobile-First, trình duyệt trên điện thoại chỉ cần tải và biên dịch đoạn CSS mặc định rất nhẹ, bỏ qua các đoạn code phức tạp nằm trong Media Queries của màn hình lớn. Ngược lại, nếu dùng Desktop-First, điện thoại sẽ phải tải toàn bộ CSS nặng nề của Desktop rồi mới chạy thêm lệnh để giấu đi, gây lãng phí tài nguyên.
 
 + Tập trung vào Trải nghiệm người dùng (UX) cốt lõi: Thiết kế trên một không gian nhỏ hẹp bắt buộc lập trình viên phải chắt lọc, ưu tiên giữ lại các tính năng và nội dung quan trọng nhất. Từ cái lõi tinh gọn này mở rộng lên màn hình lớn sẽ dễ dàng và hợp lý hơn so với việc lấy một layout khổng lồ của Desktop rồi tìm cách nhồi nhét, cắt xén để ép vào màn hình điện thoại.
+__________________________________________________________________________________________
+Câu A2:
+1. Extra small (xs)
+Kích thước pixel: < 576px
+Thiết bị đại diện: Điện thoại di động cầm dọc (Smartphones).
+Ví dụ lưới sản phẩm: Hiển thị 1 cột.
+
+2. Small (sm)
+Kích thước pixel: ≥ 576px
+Thiết bị đại diện: Điện thoại di động cầm ngang (Landscape phones).
+Ví dụ lưới sản phẩm: Hiển thị 2 cột.
+
+3. Medium (md)
+Kích thước pixel: ≥ 768px
+Thiết bị đại diện: Máy tính bảng (Tablets).
+Ví dụ lưới sản phẩm: Hiển thị 3 cột.
+
+4. Large (lg)
+Kích thước pixel: ≥ 992px
+Thiết bị đại diện: Máy tính xách tay, máy tính để bàn cỡ nhỏ (Laptops / Small Desktops).
+Ví dụ lưới sản phẩm: Hiển thị 4 cột.
+
+5. Extra large (xl) và Extra extra large (xxl)
+Kích thước pixel: ≥ 1200px (xl) và ≥ 1400px (xxl)
+Thiết bị đại diện: Máy tính để bàn màn hình lớn (Large Desktops).
+Ví dụ lưới sản phẩm: Hiển thị 5 đến 6 cột.
