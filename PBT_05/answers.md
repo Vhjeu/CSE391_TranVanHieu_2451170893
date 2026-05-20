@@ -103,3 +103,76 @@ Chiều rộng màn hình.container width
 800px               720px
 1000px              960px
 1400px              1140px
+
+Câu A4: nội dung: chương 16
+- Variables (Biến):
+--> Giải thích: Cho phép lưu trữ các giá trị thường xuyên sử dụng lại (như mã màu, font chữ, kích thước) vào một biến có tiền tố $. Khi cần thay đổi, chỉ cần đổi giá trị ở biến thì toàn bộ file sẽ cập nhật theo, giúp bảo trì code dễ dàng.
+
+Ví dụ:
+
+SCSS
+$primary-color: #3498db;
+$base-font: 'Arial', sans-serif;
+
+body {
+    color: $primary-color;
+    font-family: $base-font;
+}
+Nesting (CSS lồng nhau):
+
+Giải thích: SCSS cho phép viết các CSS selector lồng vào nhau theo đúng cấu trúc phân cấp bậc của HTML. Giúp mã nguồn gọn gàng, trực quan và hạn chế việc lặp lại tên class cha nhiều lần. Ký tự & được dùng để đại diện cho phần tử cha (thường dùng cho hover, active, pseudo-classes).
+
+Ví dụ:
+
+SCSS
+nav {
+    background-color: #333;
+    ul {
+        list-style: none;
+    }
+    a {
+        color: white;
+        &:hover {
+            color: red;
+        }
+    }
+}
+Mixins (@mixin, @include):
+
+Giải thích: Cho phép đóng gói một nhóm các thuộc tính CSS lại thành một module có thể tái sử dụng ở nhiều nơi. Điểm mạnh của Mixins so với @extend là nó có thể nhận tham số (arguments) truyền vào giống như hàm trong lập trình.
+
+Ví dụ:
+
+SCSS
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    @include flex-center;
+    width: 100%;
+}
+@extend / Inheritance (Kế thừa):
+
+Giải thích: Cho phép một selector chia sẻ (kế thừa) toàn bộ các thuộc tính CSS của một selector khác. Giúp tuân thủ nguyên tắc DRY (Don't Repeat Yourself), giảm thiểu code lặp lại.
+
+Ví dụ:
+
+SCSS
+.btn-base {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-submit {
+    @extend .btn-base; /* Kế thừa padding, border, border-radius */
+    background-color: green;
+}
+
+2.
+- Lý do trình duyệt không đọc được: Trình duyệt web (Chrome, Safari, Firefox...) được thiết kế chỉ để hiểu và phân tích cú pháp ngôn ngữ CSS tiêu chuẩn. Phân mở rộng .scss (Sassy CSS) chứa các cú pháp lập trình nâng cao (như khai báo biến $, @mixin, lồng nhau) vốn không tồn tại trong đặc tả chuẩn của ngôn ngữ CSS, do đó trình duyệt không thể dịch được.
+
+- Bước cần thực hiện: Phải thực hiện bước Biên dịch (Compilation). File .scss bắt buộc phải được chạy qua một trình biên dịch (như Node-sass, Dart Sass, hoặc các extension như Live Sass Compiler trên VS Code) để dịch toàn bộ cú pháp SCSS thành một file .css tiêu chuẩn. Cuối cùng, thẻ <link> trong file HTML sẽ gọi đến file .css đã được biên dịch này chứ không gọi file .scss.
