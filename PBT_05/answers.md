@@ -251,3 +251,19 @@ CSS
     }
 }
 Phân tích: Khi thiết bị có chiều rộng nhỏ hơn hoặc bằng 768px (Tablet dọc hoặc Mobile), class cột của sản phẩm bị ép về 50% chiều rộng (tạo thành lưới 2 cột). Đồng thời, một số phần của Footer chi tiết (các cột thông tin dài dòng) sẽ bị áp dụng display: none; để giấu đi, giúp người dùng cuộn trang trên điện thoại nhanh hơn mà không bị vướng.
+
+Câu C2:
+1. Sơ đồ bố cục (Wireframe Strategy)
+- Mobile (< 768px):
++ Những gì bị ẩn? Chữ "Gọi điện đặt bàn" (chỉ giữ icon gọi), mô tả chi tiết trên ảnh món ăn (nếu có).
++ Form nằm đâu? Nằm ngay dưới lưới ảnh món ăn, trải rộng 100% chiều rộng (1 cột).
+
+- Tablet (768px - 1023px):
++ Grid ảnh 3 cột.
++ Bản đồ nằm nằm ngang hàng với Form đặt bàn (chia lưới 2 cột: Form bên trái, Bản đồ bên phải).
+
+- Desktop (≥ 1024px):
++ Layout  2 cột chính (Cột nội dung chính và Sidebar).
++ Sidebar Có. Form đặt bàn sẽ được đặt vào Sidebar bên phải và thiết lập dính (sticky) khi cuộn trang. Cột trái chứa Hero image, Grid ảnh và Bản đồ.
+
+CSS skeleton trong file skeleton.css

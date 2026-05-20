@@ -1,0 +1,84 @@
+/* =======================================================
+   1. BỐ CỤC MOBILE (MẶC ĐỊNH - MOBILE FIRST < 768px)
+======================================================= */
+/* Layout tổng thể xếp chồng 1 cột */
+.restaurant-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "header"
+        "hero"
+        "food-grid"
+        "reservation-form"
+        "map"
+        "footer";
+    gap: 20px;
+}
+
+/* Định danh các vùng hiển thị */
+.header { grid-area: header; }
+.hero { grid-area: hero; }
+.food-grid { grid-area: food-grid; }
+.reservation-form { grid-area: reservation-form; }
+.map { grid-area: map; }
+.footer { grid-area: footer; }
+
+/* Lưới ảnh món ăn: 2 cột trên Mobile */
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+/* =======================================================
+   2. BỐ CỤC TABLET (Từ 768px đến 1023px)
+======================================================= */
+@media (min-width: 768px) {
+    .restaurant-layout {
+        /* Chia thành lưới 2 cột bằng nhau, Form và Map nằm cạnh nhau */
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "header header"
+            "hero hero"
+            "food-grid food-grid"
+            "reservation-form map"
+            "footer footer";
+    }
+
+    /* Lưới ảnh món ăn chuyển thành 3 cột */
+    .food-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+}
+
+/* =======================================================
+   3. BỐ CỤC DESKTOP (Từ 1024px trở lên)
+======================================================= */
+@media (min-width: 1024px) {
+    .restaurant-layout {
+        /* Cột trái tự động co giãn, cột phải (Sidebar Form) cố định 350px */
+        grid-template-columns: 1fr 350px;
+        grid-template-areas:
+            "header header"
+            "hero reservation-form"
+            "food-grid reservation-form"
+            "map reservation-form"
+            "footer footer";
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Biến Form đặt bàn thành Sidebar dính (sticky) khi cuộn trang */
+    .reservation-form {
+        position: sticky;
+        top: 20px;
+        height: max-content;
+    }
+
+    /* Giữ nguyên cấu trúc lưới ảnh món ăn 3 cột ở phân vùng bên trái */
+    .food-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
