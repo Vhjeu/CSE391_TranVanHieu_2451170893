@@ -1,0 +1,88 @@
+
+.card {
+    background-color: #ffffff;
+    border-radius: $spacing-sm;
+    padding: $spacing-md;
+    @include card-shadow;
+
+    .card-image {
+        width: 100%;
+        border-radius: $spacing-sm $spacing-sm 0 0;
+        object-fit: cover;
+    }
+
+    .card-title {
+        color: $secondary-color;
+        font-size: 1.2rem;
+        margin-top: $spacing-md;
+    }
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    &.featured {
+        border: 2px solid $primary-color;
+        
+        .card-title {
+            color: $primary-color;
+        }
+    }
+}
+
+.header {
+    background-color: $secondary-color;
+    padding: $spacing-md $spacing-lg;
+    @include flex-center;
+    justify-content: space-between;
+
+    .logo {
+        color: #ffffff;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .nav-menu {
+        display: none; 
+        gap: $spacing-md;
+
+        @include respond-to($breakpoint-tablet) {
+            display: flex;
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: $spacing-sm;
+
+            &:hover {
+                color: $primary-color;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.btn {
+    padding: $spacing-sm $spacing-md;
+    border-radius: 4px;
+    font-family: $font-primary;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease;
+
+    &-primary {
+        background-color: $primary-color;
+        color: #ffffff;
+
+        &:hover {
+            background-color: darken($primary-color, 10%);
+        }
+    }
+    
+    .card & {
+        margin-top: $spacing-md;
+        width: 100%;
+    }
+}

@@ -1,0 +1,140 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8fafc;
+    color: #334155;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.card-grid {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.fade-in-element {
+    text-align: center;
+    margin-bottom: 20px;
+   
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================
+   HIỆU ỨNG 4: LOADING SPINNER
+========================================================== */
+.spinner-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.loading-spinner {
+    width: 30px;
+    height: 30px;
+    border: 4px solid #cbd5e1; 
+    border-top: 4px solid #3b82f6; 
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.product-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); 
+    transition: all 0.3s ease; 
+}
+
+.product-card:hover {
+    transform: translateY(-8px); 
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15); 
+}
+
+/* ==========================================================
+   HIỆU ỨNG 3: IMAGE ZOOM
+========================================================== */
+.img-container {
+    border-radius: 8px 8px 0 0;
+    overflow: hidden; 
+}
+
+.zoom-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .zoom-img {
+    transform: scale(1.1);
+}
+
+/* ==========================================================
+   HIỆU ỨNG 2: BUTTON HOVER
+========================================================== */
+.card-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.card-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.price {
+    color: #ef4444;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.buy-btn {
+    background-color: #f1f5f9;
+    color: #3b82f6;
+    border: 1px solid #3b82f6;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.buy-btn:hover {
+    background-color: #3b82f6;
+    color: #ffffff;
+    transform: scale(1.05); 
+}

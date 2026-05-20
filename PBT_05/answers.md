@@ -176,3 +176,12 @@ SCSS
 - Lý do trình duyệt không đọc được: Trình duyệt web (Chrome, Safari, Firefox...) được thiết kế chỉ để hiểu và phân tích cú pháp ngôn ngữ CSS tiêu chuẩn. Phân mở rộng .scss (Sassy CSS) chứa các cú pháp lập trình nâng cao (như khai báo biến $, @mixin, lồng nhau) vốn không tồn tại trong đặc tả chuẩn của ngôn ngữ CSS, do đó trình duyệt không thể dịch được.
 
 - Bước cần thực hiện: Phải thực hiện bước Biên dịch (Compilation). File .scss bắt buộc phải được chạy qua một trình biên dịch (như Node-sass, Dart Sass, hoặc các extension như Live Sass Compiler trên VS Code) để dịch toàn bộ cú pháp SCSS thành một file .css tiêu chuẩn. Cuối cùng, thẻ <link> trong file HTML sẽ gọi đến file .css đã được biên dịch này chứ không gọi file .scss.
+
+________________________________________________________________
+Câu B3:
+- Lệnh Compile SCSS sang CSS:
+# Lệnh biên dịch chuẩn bằng Dart Sass (Biên dịch thư mục scss sang thư mục css)
+sass scss/style.scss css/style.css
+
+# Hoặc lệnh theo dõi tự động biên dịch khi có thay đổi (Watch mode)
+sass --watch scss/style.scss css/style.css
