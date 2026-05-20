@@ -185,3 +185,69 @@ sass scss/style.scss css/style.css
 
 # Hoặc lệnh theo dõi tự động biên dịch khi có thay đổi (Watch mode)
 sass --watch scss/style.scss css/style.css
+
+________________________________________________________________
+Phần C:
+Câu C1:
+Màn hình Mobile (375px)
+![alt text](screenshots/c1.1.png)
+
+Navigation: Hệ thống điều hướng thay đổi hoàn toàn. Thanh Header trên cùng (Top Bar) bị lược bỏ các liên kết phụ, chỉ giữ lại thanh tìm kiếm (Search bar) và icon Giỏ hàng. Xuất hiện thêm thanh điều hướng cố định ở dưới đáy màn hình (Bottom Navigation Bar) chứa các mục: Home, Mall, Live, Thông báo, Tôi.
+
+Lưới content: Lưới sản phẩm (Gợi ý hôm nay) thu gọn lại thành 2 cột. Các danh mục sản phẩm chuyển thành dạng cuộn ngang (horizontal scroll).
+
+Elements bị ẩn: Các liên kết phụ trên Header (Kênh Người Bán, Tải ứng dụng, Kết nối, Hỗ trợ), Banner quảng cáo kích thước lớn hai bên, và phần Footer chi tiết bị ẩn đi hoặc rút gọn thành các accordion (menu thả xuống).
+
+Font size: Font chữ được thu nhỏ lại (khoảng 12px - 14px) để hiển thị được nhiều thông tin hơn trên không gian hẹp.
+
+
+Màn hình Tablet (768px)
+![alt text](screenshots/c1.2.png)
+
+Navigation: Thanh tìm kiếm được kéo dài ra. Thanh Bottom Navigation (của Mobile) biến mất.
+
+Lưới content: Lưới sản phẩm mở rộng lên thành 4 cột.
+
+Elements bị ẩn: Một số liên kết trên Top Bar vẫn bị ẩn so với bản Desktop để tránh lộn xộn. Filter (bộ lọc) ở các trang tìm kiếm thường bị ẩn vào trong một nút bấm (nhấn vào mới hiện ra popup).
+
+Font size: Tăng nhẹ so với Mobile, các khoảng trắng (padding/margin) giữa các phần tử cũng được nới lỏng ra để dễ thao tác chạm (touch).
+
+Màn hình Desktop (1440px)
+![alt text](screenshots/c1.3.png)
+
+Navigation: Hiển thị Header đầy đủ nhất. Có thanh Top Bar chứa toàn bộ liên kết (Kênh Người Bán, Trở thành Người bán Shopee, Tải ứng dụng, Đăng ký, Đăng nhập). Dưới thanh tìm kiếm xuất hiện các từ khóa gợi ý phổ biến (trending tags).
+
+Lưới content: Lưới sản phẩm (Gợi ý hôm nay) hiển thị tối đa 6 cột. Banner quảng cáo (Carousel) hiển thị kích thước lớn nhất.
+
+Elements bị ẩn: Thanh Bottom Navigation không tồn tại. Nút cuộn ngang của danh mục biến mất vì toàn bộ danh mục đã hiển thị đủ trên lưới.
+
+Font size: Kích thước font chữ tiêu chuẩn (thường base ở 14px - 16px), dễ đọc với khoảng cách nhìn từ mắt đến màn hình máy tính.
+
+2. Phân tích Media Queries qua DevTools
+ chụp ảnh các rule @media
+![alt text](screenshots/c1.4.png)
+
+Dưới đây là 2 quy tắc @media tiêu biểu được sử dụng để điều khiển layout:
+
+Quy tắc 1: Thiết lập kích thước tối đa cho Container trên Desktop
+
+CSS
+@media (min-width: 1200px) {
+    .container {
+        width: 1200px;
+    }
+}
+Phân tích: Khi màn hình có chiều rộng từ 1200px trở lên, khối .container bọc toàn bộ nội dung trang web sẽ bị khóa cứng ở mức 1200px và được căn giữa. Điều này ngăn trang web bị giãn ra vô tận trên các màn hình quá lớn (như màn 27 inch hoặc ultrawide), giữ cho bố cục lưới 6 cột luôn hiển thị đúng tỷ lệ.
+
+Quy tắc 2: Điều chỉnh lưới sản phẩm cho màn hình nhỏ
+
+CSS
+@media (max-width: 768px) {
+    .col-xs-2-4 {
+        width: 50%; /* Tương đương 2 cột */
+    }
+    .footer-section {
+        display: none;
+    }
+}
+Phân tích: Khi thiết bị có chiều rộng nhỏ hơn hoặc bằng 768px (Tablet dọc hoặc Mobile), class cột của sản phẩm bị ép về 50% chiều rộng (tạo thành lưới 2 cột). Đồng thời, một số phần của Footer chi tiết (các cột thông tin dài dòng) sẽ bị áp dụng display: none; để giấu đi, giúp người dùng cuộn trang trên điện thoại nhanh hơn mà không bị vướng.
