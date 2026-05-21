@@ -33,3 +33,68 @@ Câu C1:
 2. KHÔNG nên override trực tiếp .btn-primary { background: red; } mà nên dùng SASS variables vì:
 - Phá vỡ tính đồng bộ của hệ thống thiết kế (Design System): Biến $primary trong Bootstrap là biến gốc được sử dụng rải rác ở hàng chục component khác nhau (như bg-primary, text-primary, alert-primary, border-primary, badge, pagination...). Nếu chỉ override thủ công .btn-primary, nút bấm sẽ có màu đỏ, nhưng các thành phần khác vẫn giữ màu xanh mặc định, gây bất nhất giao diện.
 - Mất đi sức mạnh tự động tính toán của SASS: Khi thay đổi biến $primary, các hàm (functions) dựng sẵn của Bootstrap sẽ tự động tính toán và sinh ra các phổ màu phụ (sắc độ sáng/tối) dùng cho các trạng thái hover, active, focus-ring, disabled. Nếu dùng CSS thuần đè trực tiếp .btn-primary, người lập trình bắt buộc phải tự viết tay hàng loạt các thuộc tính hover, active rất thủ công, tốn thời gian và khó bảo trì.
+
+Câu C2:
+1. code CSS
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav-menu { display: flex; gap: 1.5rem; list-style: none; }
+.hamburger { display: none; cursor: pointer; }
+
+@media (max-width: 768px) {
+    .nav-menu { display: none; flex-direction: column; width: 100%; }
+    .hamburger { display: block; }
+    .navbar.active .nav-menu { display: flex; }
+}
+
+/* Thiết lập Product Card */
+.card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    width: 300px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+.card img { width: 100%; height: auto; display: block; }
+.card-body { padding: 1.5rem; }
+.card-title { font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem; }
+.btn-primary {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+}
+2. So sánh với Bootstrap version:
+- Số dòng CSS cần viết:
++ CSS thuần: Cần viết khoảng 50 - 100+ dòng CSS để xử lý layout (Flexbox), trạng thái hover, shadow, và đặc biệt là viết Media Queries cho responsive.
++ Bootstrap: Tốn 0 dòng CSS custom. Toàn bộ cấu trúc được giải quyết trực tiếp trên HTML bằng các class dựng sẵn (VD: navbar, navbar-expand-lg, card, card-img-top, shadow, col-md-4).
+
+- Thời gian phát triển:
++ CSS thuần: Chậm. Phải tự xây dựng từ đầu, tự tính toán khoảng cách (padding/margin) và tốn nhiều thời gian test lỗi giao diện trên các kích thước màn hình khác nhau.
++ Bootstrap: Rất nhanh (chỉ bằng 1/3 hoặc 1/4 thời gian). Lắp ghép các component có sẵn là chạy được ngay, responsive đã được tính toán chuẩn mực.
+
+- Khả năng tùy biến:
++ CSS thuần: Tuyệt đối (100%). Lập trình viên kiểm soát từng pixel, dễ dàng tạo ra các giao diện độc quyền, dị biệt không đụng hàng.
++ Bootstrap: Thấp hơn nếu chỉ dùng CSS thuần để đè (override). Nếu không biết dùng SCSS để đổi biến số, các trang web làm bằng Bootstrap thường trông rất "công nghiệp" và giống hệt nhau (Bootstrap-y look).
+
+- NÊN dùng Bootstrap khi:
++ Cần làm sản phẩm nhanh, chạy deadline gấp (Landing page sự kiện, Prototype bản nháp).
++ Làm các trang quản trị (Admin Dashboard), trang web nội bộ công ty (nơi tính năng quan trọng hơn sự độc đáo của giao diện).
++ Dự án không có Designer UI/UX riêng biệt, hoặc Backend Developer cần tự dọn giao diện mà không rành CSS sâu.
+
+- KHÔNG NÊN dùng Bootstrap khi:
++ Dự án yêu cầu thiết kế UI/UX độc quyền, có tính nhận diện thương hiệu cao, yêu cầu độ chính xác tới từng pixel (Pixel-perfect) theo bản vẽ Figma.
++ Dự án yêu cầu tối ưu hiệu suất, tốc độ tải trang cực nhanh (việc nhúng toàn bộ thư viện Bootstrap lớn sẽ gây thừa thãi code - "bloatware").
+Giao diện quá phá cách, không tuân theo hệ thống Grid 12 cột tiêu chuẩn.
