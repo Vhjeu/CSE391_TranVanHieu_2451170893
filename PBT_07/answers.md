@@ -41,3 +41,21 @@ console.log({} + []);            // "[object Object]" (Bên trong hàm console.l
 + "5" + 3 (Toán tử cộng / Nối chuỗi): Trong JavaScript, toán tử + có hai tác dụng: tính tổng toán học hoặc nối chuỗi. Khi một trong hai toán hạng là chuỗi (string) - ở đây là "5", JavaScript sẽ tự động ép kiểu (coercion) toán hạng còn lại (3) thành chuỗi. Sau đó, nó thực hiện phép nối chuỗi, kết quả là "5" + "3" = "53".
 + "5" - 3 (Toán tử trừ):
 Toán tử - (cũng như *, /) chỉ có duy nhất một mục đích là thực hiện phép tính toán học. Do đó, JavaScript sẽ cố gắng ép kiểu chuỗi "5" về dạng số (number). Phép tính trở thành trừ toán học thông thường: 5 - 3 = 2.
+
+Câu A3:
+1. Dự đoán kết quả (Output)
+
+JavaScript
+console.log(5 == "5");                // true (Ép kiểu chuỗi "5" thành số 5)
+console.log(5 === "5");               // false (Khác kiểu dữ liệu: number và string)
+console.log(null == undefined);       // true (Quy tắc đặc biệt của JS: chúng bằng nhau ở so sánh lỏng)
+console.log(null === undefined);      // false (Khác kiểu dữ liệu)
+console.log(NaN == NaN);              // false (Đặc tính của JS: NaN không bao giờ bằng chính nó)
+console.log(0 == false);              // true (0 và false đều là giá trị falsy, ép kiểu ra cùng kết quả)
+console.log(0 === false);             // false (Khác kiểu dữ liệu)
+console.log("" == false);             // true (Chuỗi rỗng ép kiểu thành 0, false ép kiểu thành 0)
+
+2. Quy tắc sử dụng == (Loose Equality) và === (Strict Equality)
+- Từ giờ trở đi, bạn NÊN luôn luôn dùng === (và !==).
++ Tại sao? Toán tử === (so sánh nghiêm ngặt) sẽ kiểm tra cả giá trị lẫn kiểu dữ liệu mà không tự động ép kiểu ngầm (type coercion). Điều này giúp code của bạn an toàn, dễ dự đoán hơn và tránh được những lỗi logic (bugs) "ngớ ngẩn" do sự ép kiểu lộn xộn của JavaScript gây ra (như việc "" == false lại trả về true).
++ Chỉ nên dùng == trong một trường hợp ngoại lệ rất hiếm khi bạn cố tình muốn kiểm tra xem một biến có bị rỗng hay không (vd: if (x == null) sẽ bắt trúng cả trường hợp x là null hoặc undefined), nhưng nhìn chung thói quen tốt nhất vẫn là dùng ===.
