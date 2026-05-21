@@ -41,3 +41,36 @@ Câu A1:
 * `hover:bg-blue-600` → Khi hover, đổi màu nền sang xanh dương đậm hơn
 * `focus:ring-2` → Khi được focus (click vào hoặc tab tới), hiện viền sáng (ring) với độ dày 2px
 * `focus:ring-blue-300` → Đặt màu cho cái viền sáng (ring) đó là màu xanh dương nhạt.
+
+Câu A2:
+**1. Giải thích prefix responsive (`md:`, `lg:`, `xl:`)**
+- Khác với Bootstrap theo hướng Mobile-First mặc định (viết CSS từ nhỏ đến lớn), TailwindCSS áp dụng tiền tố (prefix) trực tiếp vào class để xác định breakpoint kích hoạt thuộc tính CSS đó. Nếu không có prefix, class đó mặc định áp dụng cho màn hình nhỏ nhất (Mobile).
+
+* **`md:` (Medium):** Áp dụng thuộc tính từ breakpoint Medium trở lên (mặc định là `≥ 768px` - tương đương Tablet).
+* **`lg:` (Large):** Áp dụng thuộc tính từ breakpoint Large trở lên (mặc định là `≥ 1024px` - tương đương Desktop/Laptop nhỏ).
+* **`xl:` (Extra Large):** Áp dụng thuộc tính từ breakpoint Extra Large trở lên (mặc định là `≥ 1280px` - tương đương Desktop lớn).
+
+**Ví dụ `md:grid-cols-2 lg:grid-cols-4` nghĩa là:**
+* Mặc định (dưới 768px): Hệ thống lưới thường là 1 cột (nếu có khai báo `grid-cols-1`).
+* Từ `768px` trở lên (Tablet): Lưới chia làm **2 cột**.
+* Từ `1024px` trở lên (Desktop): Lưới chia làm **4 cột**.
+
+---
+
+**2. Giải thích state modifiers (trạng thái tương tác)**
+- State modifiers cho phép bạn thay đổi CSS dựa trên trạng thái của phần tử, giống hệt như các pseudo-classes trong CSS thuần.
+
+* **`hover:`**: Kích hoạt khi người dùng đưa con trỏ chuột vào (hover) phần tử. (VD: `hover:bg-red-500` - Đổi nền đỏ khi di chuột vào).
+* **`focus:`**: Kích hoạt khi phần tử đang được focus (thường dùng cho input khi click vào để gõ, hoặc khi dùng phím Tab để di chuyển). (VD: `focus:outline-none` - Bỏ viền mặc định khi click vào ô input).
+* **`active:`**: Kích hoạt tại thời điểm người dùng đang nhấn chuột trái xuống phần tử (chưa nhả ra). (VD: `active:scale-95` - Làm nút bấm hơi lún xuống khi click).
+* **`group-hover:`**: Một tính năng đặc biệt của Tailwind. Bạn thêm class `group` vào thẻ cha (container), sau đó dùng `group-hover:` ở thẻ con. Khi người dùng hover vào **bất kỳ đâu trên thẻ cha**, hiệu ứng ở thẻ con sẽ được kích hoạt. Thường dùng để hiển thị các nút/icon phụ khi hover vào cả một cái thẻ (card) sản phẩm.
+
+---
+
+**3. Viết class Tailwind cho: "Ẩn trên mobile, hiện dạng flex trên tablet trở lên"**
+- Class Tailwind tương đương với `d-none d-md-flex` của Bootstrap là:
+**`hidden md:flex`**
+
+*Giải thích:*
+* `hidden`: Ẩn hoàn toàn phần tử (`display: none`) theo cấu hình mặc định (Mobile).
+* `md:flex`: Khi màn hình đạt kích thước từ 768px trở lên (`md:`), chuyển đổi thành hộp linh hoạt (`display: flex`).
