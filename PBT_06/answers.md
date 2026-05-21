@@ -22,3 +22,14 @@ Câu A2:
 - .container: Container có chiều rộng cố định tối đa (max-width) và thay đổi "nhảy bậc" tại mỗi breakpoint (sm, md, lg, xl, xxl). Giữa các phần tử có khoảng lề hai bên.
 - .container-fluid: Luôn luôn giãn rộng chiếm 100% chiều rộng màn hình bất kể thiết bị nào, từ mobile đến màn hình desktop siêu lớn.
 - .container-md: Là sự kết hợp. Chiếm 100% chiều rộng ở các màn hình nhỏ (dưới 768px). Bắt đầu từ màn hình md (≥ 768px) trở lên, nó mới thu lại và hoạt động như một .container có chiều rộng cố định.
+
+_____________________________________________________________________________
+Phần C:
+Câu C1:
+1. Quy trình đổi màu $primary từ xanh mặc định sang #E63946:
+- Công cụ cần thiết: Trình biên dịch SASS (như Node-sass, Dart Sass qua terminal, hoặc extension Live Sass Compiler trên VS Code) và mã nguồn SCSS gốc của Bootstrap (tải qua npm hoặc tải trực tiếp).
+- File cần modify/tạo mới: Không sửa trực tiếp vào mã nguồn của Bootstrap. Cần tạo một file SCSS tùy biến riêng (ví dụ: custom.scss).
+
+2. KHÔNG nên override trực tiếp .btn-primary { background: red; } mà nên dùng SASS variables vì:
+- Phá vỡ tính đồng bộ của hệ thống thiết kế (Design System): Biến $primary trong Bootstrap là biến gốc được sử dụng rải rác ở hàng chục component khác nhau (như bg-primary, text-primary, alert-primary, border-primary, badge, pagination...). Nếu chỉ override thủ công .btn-primary, nút bấm sẽ có màu đỏ, nhưng các thành phần khác vẫn giữ màu xanh mặc định, gây bất nhất giao diện.
+- Mất đi sức mạnh tự động tính toán của SASS: Khi thay đổi biến $primary, các hàm (functions) dựng sẵn của Bootstrap sẽ tự động tính toán và sinh ra các phổ màu phụ (sắc độ sáng/tối) dùng cho các trạng thái hover, active, focus-ring, disabled. Nếu dùng CSS thuần đè trực tiếp .btn-primary, người lập trình bắt buộc phải tự viết tay hàng loạt các thuộc tính hover, active rất thủ công, tốn thời gian và khó bảo trì.
