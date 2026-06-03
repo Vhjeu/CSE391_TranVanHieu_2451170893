@@ -135,3 +135,30 @@ const labels = nums.map(n => `Số ${n} là ${n % 2 === 0 ? 'chẵn' : 'lẻ'}`)
 
 // 8. Đảo ngược mảng mà không mutate gốc (Dùng Spread Operator để copy mảng trước khi reverse)
 const reversed = [...nums].reverse();
+
+Câu A4:
+### 1. Object Destructuring
+
+* `console.log(name, price, ram, color);` 👉 In ra: **`iPhone 16 25990000 8 Titan`**
+* `console.log(specs);` 👉 **Báo lỗi (ReferenceError: specs is not defined)**
+* **Giải thích:** Khi bạn viết `specs: { ram, color }`, JavaScript hiểu rằng bạn muốn "đi sâu" vào trong `specs` để lấy ra 2 biến `ram` và `color`. Nó sẽ KHÔNG tạo ra một biến tên là `specs`. Nếu muốn lấy cả object `specs`, bạn phải viết là `{ name, price, specs }`.
+---
+
+### 2. Spread Syntax (Toán tử spread)
+
+* `console.log(updated.price);` 👉 In ra: **`23990000`** (Vì thuộc tính `price` viết sau đã ghi đè lên `price` của `product` cũ).
+* `console.log(updated.sale);` 👉 In ra: **`true`** (Thuộc tính mới được thêm vào thành công).
+* `console.log(product.price);` 👉 In ra: **`25990000`** (Object gốc `product` không bị thay đổi, nó vẫn giữ nguyên giá cũ).
+
+---
+
+### 3. Spread Gotcha (Bẫy sao chép)
+
+* `console.log(product.specs.ram);` 👉 In ra: **`16`** (Thay vì 8 như ban đầu).
+
+**Tại sao lại như vậy? (Shallow Copy)**
+Toán tử spread `...` chỉ thực hiện quá trình **Sao chép nông (Shallow Copy)**. Nghĩa là nó chỉ tạo ra các vùng nhớ mới cho các thuộc tính nằm ở lớp ngoài cùng (như `name` và `price`).
+
+Đối với các object lồng nhau (nested object) như `specs`, nó chỉ sao chép **địa chỉ tham chiếu (reference/con trỏ)** chứ không tạo ra một object `specs` mới hoàn toàn. Hậu quả là `copy.specs` và `product.specs` đang cùng "nhìn" về chung một ngôi nhà trong bộ nhớ. Khi bạn sửa `ram` thành 16 qua biến `copy`, ngôi nhà chung đó bị thay đổi, dẫn đến `product` gốc cũng bị đổi theo.
+
+*(Để khắc phục vấn đề này, người ta thường dùng **Deep Copy** thông qua lệnh `JSON.parse(JSON.stringify(product))` hoặc hàm `structuredClone()` của JavaScript hiện đại).*
