@@ -81,3 +81,12 @@ const unstableAPI = async () => {
         console.log(err.message);
     }
 })();
+
+Câu C1:
+Viết lại thành ≤ 10 dòng dùng filter, map, sort, destructuring, arrow functions:
+const processOrders = (orders) => orders
+    .filter(({ status, total }) => status === "completed" && total > 100000)
+    .map(({ id, customer, total }) => ({
+        id, customer, total, discount: total * 0.1, finalTotal: total * 0.9
+    }))
+    .sort((a, b) => b.finalTotal - a.finalTotal);
