@@ -108,3 +108,30 @@ Hàm `counter()` tạo ra một biến `count = 0`. Khi nó `return` về một 
 Khi vòng lặp chạy, chỉ có **một biến `i` duy nhất** được tạo ra. Vòng lặp chạy rất nhanh từ 0 đến 2, kết thúc vòng lặp, `i` tăng lên bằng 3. Sau 100ms, 3 cái `setTimeout` mới bắt đầu chạy và cùng tìm đến chung một địa chỉ bộ nhớ của `i`, lúc này `i` đã là 3. Do đó nó in ra ba số 3.
 * **Trường hợp dùng `let`:** `let` có phạm vi theo khối (Block Scope).
 Mỗi khi vòng lặp `for` chạy một bước mới, nó lại tạo ra một **bản sao hoàn toàn mới** của biến `j` cho riêng vòng lặp đó. Sẽ có 3 biến `j` khác nhau ở 3 ô nhớ khác nhau (chứa giá trị 0, 1, 2). Mỗi cái `setTimeout` sẽ "ôm" (closure) lấy đúng cái biến `j` của vòng lặp sinh ra nó. Sau 200ms, chúng chạy và in ra chính xác các giá trị 0, 1, 2.
+
+Câu A3: đọc Chương 6
+const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// 1. Lấy các số chẵn (Dùng filter)
+const evens = nums.filter(n => n % 2 === 0);
+
+// 2. Nhân mỗi số với 3 (Dùng map)
+const multiplied = nums.map(n => n * 3);
+
+// 3. Tính tổng tất cả (Dùng reduce)
+const sum = nums.reduce((total, n) => total + n, 0);
+
+// 4. Tìm số đầu tiên > 7 (Dùng find)
+const firstOver7 = nums.find(n => n > 7);
+
+// 5. Kiểm tra CÓ số > 10 không (Dùng some)
+const hasOver10 = nums.some(n => n > 10);
+
+// 6. Kiểm tra TẤT CẢ đều > 0 (Dùng every)
+const allPositive = nums.every(n => n > 0);
+
+// 7. Tạo mảng "Số X là [chẵn/lẻ]" (Dùng map + Toán tử 3 ngôi)
+const labels = nums.map(n => `Số ${n} là ${n % 2 === 0 ? 'chẵn' : 'lẻ'}`);
+
+// 8. Đảo ngược mảng mà không mutate gốc (Dùng Spread Operator để copy mảng trước khi reverse)
+const reversed = [...nums].reverse();
