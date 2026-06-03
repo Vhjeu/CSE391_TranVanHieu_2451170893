@@ -95,3 +95,19 @@ if (0) console.log("F"); 👉 KHÔNG in (Nằm trong danh sách 8 Falsy).
 if (-1) console.log("G"); 👉 Có in ra "G" (Mọi số khác 0 đều là Truthy, kể cả số âm).
 
 if (" ") console.log("H"); 👉 Có in ra "H" (Đây là một chuỗi có chứa 1 dấu cách, không phải chuỗi rỗng nên nó là Truthy).
+
+Câu A5:
+// Cách 1: Nối chuỗi thông thường
+const greeting = `Xin chào ${name}! Bạn ${age} tuổi.`;
+
+// Cách 2: Tạo đường dẫn (URL) chứa biến
+const url = `https://api.example.com/users/${userId}/orders?page=${page}`;
+
+// Cách 3: Viết khối HTML nhiều dòng
+const html = `
+<div class="card">
+    <h2>${title}</h2>
+    <p>${description}</p>
+    <span>Giá: ${price}đ</span>
+</div>
+`;
