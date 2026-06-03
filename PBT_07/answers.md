@@ -59,3 +59,39 @@ console.log("" == false);             // true (Chuỗi rỗng ép kiểu thành 
 - Từ giờ trở đi, bạn NÊN luôn luôn dùng === (và !==).
 + Tại sao? Toán tử === (so sánh nghiêm ngặt) sẽ kiểm tra cả giá trị lẫn kiểu dữ liệu mà không tự động ép kiểu ngầm (type coercion). Điều này giúp code của bạn an toàn, dễ dự đoán hơn và tránh được những lỗi logic (bugs) "ngớ ngẩn" do sự ép kiểu lộn xộn của JavaScript gây ra (như việc "" == false lại trả về true).
 + Chỉ nên dùng == trong một trường hợp ngoại lệ rất hiếm khi bạn cố tình muốn kiểm tra xem một biến có bị rỗng hay không (vd: if (x == null) sẽ bắt trúng cả trường hợp x là null hoặc undefined), nhưng nhìn chung thói quen tốt nhất vẫn là dùng ===.
+
+Câu 4:
+1. TẤT CẢ các giá trị Falsy trong JavaScript
+false (Hiển nhiên)
+
+0 (Số không)
+
+-0 (Số không âm)
+
+0n (Số không trong kiểu BigInt)
+
+"", '', hoặc `` (Chuỗi rỗng - không chứa ký tự nào)
+
+null (Giá trị rỗng)
+
+undefined (Chưa được định nghĩa)
+
+NaN (Not a Number)
+
+2. Dự đoán kết quả
+
+if ("0") console.log("A"); 👉 Có in ra "A" (Vì "0" là một chuỗi có chứa ký tự, nó là Truthy).
+
+if ("") console.log("B"); 👉 KHÔNG in (Chuỗi rỗng là Falsy).
+
+if ([]) console.log("C"); 👉 Có in ra "C" (Mảng rỗng vẫn là một Object, mà mọi Object đều là Truthy).
+
+if ({}) console.log("D"); 👉 Có in ra "D" (Object rỗng cũng là Truthy).
+
+if (null) console.log("E"); 👉 KHÔNG in (Nằm trong danh sách 8 Falsy).
+
+if (0) console.log("F"); 👉 KHÔNG in (Nằm trong danh sách 8 Falsy).
+
+if (-1) console.log("G"); 👉 Có in ra "G" (Mọi số khác 0 đều là Truthy, kể cả số âm).
+
+if (" ") console.log("H"); 👉 Có in ra "H" (Đây là một chuỗi có chứa 1 dấu cách, không phải chuỗi rỗng nên nó là Truthy).
