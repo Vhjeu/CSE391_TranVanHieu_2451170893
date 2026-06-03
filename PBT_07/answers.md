@@ -111,3 +111,102 @@ const html = `
     <span>Giá: ${price}đ</span>
 </div>
 `;
+
+___________________________________________________________________
+Câu C1:
+Lỗi 1: Sai toán tử so sánh (Lỗi Logic nghiêm trọng)
+
+Đoạn code lỗi: if (giaSauGiam = 0)
+
+Giải thích: Bạn đang dùng một dấu bằng (=), đây là phép gán chứ không phải phép so sánh. Biến giaSauGiam sẽ bị ép thành giá trị 0. Số 0 trong JS là Falsy, nên câu lệnh console.log bên trong sẽ không bao giờ chạy, và hàm luôn luôn trả về 0 bất chấp đầu vào.
+
+Cách sửa: Đổi thành if (giaSauGiam === 0).
+
+Lỗi 2: Lỗi "ẩn" vòng lặp for kết hợp setTimeout (Vấn đề về Scope)
+
+Đoạn code lỗi: for (var i = 0; i < 5; i++) { setTimeout(...) }
+
+Giải thích: * Trình duyệt sẽ cho vòng lặp for chạy một mạch từ 0 đến 5 ngay lập tức. Cùng lúc đó, nó đặt 5 cái hẹn giờ (setTimeout) chờ 1 giây sau mới chạy.
+
+Tuy nhiên, do bạn khai báo bằng var i (có phạm vi Global/Function Scope), cả 5 cái hẹn giờ này đều trỏ chung vào cùng một biến i duy nhất.
+
+Sau 1 giây, khi các hàm setTimeout bắt đầu chạy thì vòng lặp đã chạy xong từ lâu, lúc này i đã tăng lên bằng 5. Kết quả là nó in ra "Item 5" liên tục 5 lần.
+
+Cách sửa: Thay var i bằng let i. Khác với var, biến let có phạm vi theo khối (Block Scope). Mỗi một vòng lặp sẽ tạo ra một biến i hoàn toàn mới và độc lập, nhờ đó setTimeout sẽ "nhớ" được đúng giá trị của i tại thời điểm đó (in ra 0, 1, 2, 3, 4).
+
+Lỗi 3: Truyền sai kiểu dữ liệu đầu vào (Type Coercion rủi ro)
+
+Đoạn code lỗi: const gia = tinhGiaGiamGia("100000", 20)
+
+Giải thích: Bạn truyền một chuỗi String ("100000") vào một hàm toán học. Dù JavaScript sẽ tự động ép kiểu ngầm để tính toán (trừ thì được, nhưng nếu là dấu + nó sẽ biến thành nối chuỗi). Thói quen này cực kỳ nguy hiểm và dễ sinh bug khó lường.
+
+Cách sửa: Truyền vào số nguyên thật sự: tinhGiaGiamGia(100000, 20).
+
+Lỗi 4: Kiểu dữ liệu trả về không nhất quán (Mixed Return Types)
+
+Đoạn code lỗi: return "Phần trăm giảm không hợp lệ" (Trả về String) và return giaSauGiam (Trả về Number).
+
+Giải thích: Việc một hàm lúc trả về chữ, lúc trả về số khiến các đoạn code dùng nó sau này không biết đường nào mà xử lý (ví dụ không thể mang đi tính toán tiếp được).
+
+Cách sửa: Nên ném ra một lỗi (Throw Error) hoặc in cảnh báo ra console và trả về null hoặc -1.
+
+Lỗi 5: Thiếu kiểm tra (Validate) dữ liệu của giaBan
+
+Đoạn code lỗi: Hàm chỉ kiểm tra phanTramGiam mà bỏ quên biến giaBan.
+
+Giải thích: Nếu vô tình truyền giaBan là chữ (như "abc") hoặc số âm (như -50000), hàm vẫn cắm đầu tính toán và sẽ sinh ra lỗi logic hoặc trả về NaN (Not a Number).
+
+Cách sửa: Thêm điều kiện kiểm tra biến giaBan phải lớn hơn 0 và phải là kiểu number.
+
+Lỗi 6: Dùng var cho biến cục bộ (Bad Practice)
+
+Đoạn code lỗi: var giamGia = giaBan * ...
+
+Giải thích: Trong ES6+ (JavaScript hiện đại), bạn không nên dùng var nữa để tránh lỗi Hoisting và rò rỉ biến ngoài ý muốn.
+
+Cách sửa: Đổi var giamGia thành const giamGia (vì biến này không bị gán lại).
+function tinhGiaGiamGia(giaBan, phanTramGiam) {
+    // SỬA LỖI 5: Bổ sung validate cho giaBan
+    if (typeof giaBan !== 'number' || giaBan < 0) {
+        throw new Error("Giá bán không hợp lệ (phải là số và >= 0)");
+    }
+    
+    if (phanTramGiam < 0 || phanTramGiam > 100) {
+        // SỬA LỖI 4: Quăng lỗi thay vì return một chuỗi (String)
+        throw new Error("Phần trăm giảm không hợp lệ (từ 0 - 100)");
+    }
+    
+    // SỬA LỖI 6: Đổi var thành const
+    const giamGia = (giaBan * phanTramGiam) / 100;
+    
+    // Vẫn dùng let hoặc const ở đây đều được, nhưng code không thay đổi giá trị nên dùng const tốt hơn
+    const giaSauGiam = giaBan - giamGia;
+    
+    // SỬA LỖI 1: Đổi phép gán "=" thành phép so sánh nghiêm ngặt "==="
+    if (giaSauGiam === 0) {
+        console.log("Sản phẩm miễn phí!");
+    }
+    
+    return giaSauGiam;
+}
+
+// ================= TEST ================= //
+
+// SỬA LỖI 3: Truyền vào giá trị kiểu Number (bỏ ngoặc kép)
+const gia = tinhGiaGiamGia(100000, 20);
+console.log("Giá sau giảm: " + gia + "đ");
+
+// Dùng try-catch để bắt cái lỗi Throw Error ở trên cho an toàn
+try {
+    const gia2 = tinhGiaGiamGia(50000, 110);
+    console.log("Giá: " + gia2);
+} catch (error) {
+    console.log("Lỗi: " + error.message);
+}
+
+// SỬA LỖI 2 (Lỗi ẩn): Đổi var thành let để tạo Block Scope
+for (let i = 0; i < 5; i++) {
+    setTimeout(function() {
+        console.log("Item " + i);
+    }, 1000);
+}
