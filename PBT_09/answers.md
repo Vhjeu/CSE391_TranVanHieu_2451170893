@@ -110,3 +110,96 @@ Output sẽ chỉ in ra một dòng duy nhất:
 Vì `btn` nằm trong `inner`, và `inner` lại nằm trong `outer`, nên sự kiện click truyền từ `btn` ➔ `inner` ➔ `outer`.
 * **Tác dụng của `e.stopPropagation()`:**
 Hàm này dịch sát nghĩa là "Ngăn chặn sự lan truyền". Khi được gọi ở bên trong listener của `#btn`, nó ra lệnh cho trình duyệt: *"Dừng ngay sự kiện này lại ở đây, không được sủi bọt lên các phần tử cha nữa"*. Do đó, các hàm `console.log` của `#inner` và `#outer` sẽ không bao giờ được kích hoạt.
+
+______________________________________________________________________________
+Phần C:
+Câu C1:
+**1. Sai tên sự kiện ở nút giảm (Decrement)**
+
+* **Lỗi:** `addEventListener("onclick", ...)`
+* **Giải thích:** Trong `addEventListener`, tên sự kiện không có chữ "on" ở đầu. Phải sửa thành `"click"`.
+
+**2. Gán giá trị sai cho DOM Element (Reset)**
+
+* **Lỗi:** `countDisplay = count;`
+* **Giải thích:** `countDisplay` được khai báo bằng `const` (hằng số) ở đầu file và đang trỏ đến một DOM Element. Bạn không thể gán đè một con số trực tiếp vào nó. Phải gán vào thuộc tính nội dung: `countDisplay.textContent = count;`.
+
+**3. Gọi hàm xóa sai cú pháp (Clear all)**
+
+* **Lỗi:** `item.remove;`
+* **Giải thích:** `remove` là một phương thức (hàm) chứ không phải thuộc tính. Bạn bị thiếu dấu ngoặc đơn để kích hoạt hàm. Phải sửa thành `item.remove();`.
+
+**4. Thiếu ép kiểu dữ liệu từ localStorage (Load)**
+
+* **Lỗi:** `count = localStorage.getItem("count");`
+* **Giải thích:** Dữ liệu lấy từ localStorage luôn ở dạng chuỗi (String). Nếu lưu `"1"`, khi lấy ra sẽ là `"1"`. Cần ép kiểu về số bằng `Number(...)` để tránh sinh ra lỗi cộng nối chuỗi khi thực hiện các phép toán phía sau.
+
+**5. Không có giá trị mặc định cho lần đầu tải trang (Load)**
+
+* **Lỗi:** Code không xử lý trường hợp người dùng mới vào trang lần đầu (localStorage trống rỗng, trả về `null`).
+* **Giải thích:** Khi lấy dữ liệu phải kèm giá trị dự phòng. Ví dụ: `Number(localStorage.getItem("count")) || 0`.
+
+**6. Quên khôi phục lại dữ liệu lịch sử (Load)**
+
+* **Lỗi:** Hàm `load` chỉ lấy giá trị `count` mà quên mất việc lấy chuỗi HTML đã lưu của danh sách lịch sử.
+* **Giải thích:** Cần bổ sung lệnh gán lại dữ liệu lịch sử vào `historyList.innerHTML`.
+
+**7. Lỗi mất Event Listener khi khôi phục từ localStorage (Bug logic ẩn)**
+
+* **Lỗi:** Khi tải lại `historyList.innerHTML` từ localStorage, các thẻ `<li>` được vẽ lại bằng chuỗi HTML nên sẽ bị **mất toàn bộ sự kiện click** đã gắn vào chúng bằng `li.addEventListener` lúc đầu. User sẽ không thể click để xóa từng `<li>` được nữa.
+* **Giải thích:** Để giải quyết lỗi này, không gắn sự kiện `click` vào từng thẻ `<li>` lúc tạo ra nữa. Thay vào đó, áp dụng kỹ thuật **Event Delegation**: Gắn một sự kiện `click` duy nhất lên thẻ cha `historyList` và kiểm tra `e.target` để biết thẻ `<li>` nào bị click rồi xóa nó.
+
+---
+
+### Code đã được sửa lại hoàn chỉnh và tối ưu:
+
+```javascript
+const countDisplay = document.querySelector(".count");
+const historyList = document.getElementById("history");
+let count = 0;
+
+document.querySelector("#incrementBtn").addEventListener("click", function() {
+    count++;
+    countDisplay.textContent = count;
+    
+    const li = document.createElement("li");
+    li.textContent = "Count changed to " + count;
+    historyList.append(li);
+});
+
+document.querySelector("#decrementBtn").addEventListener("click", function() {
+    count--;
+    countDisplay.textContent = count;
+});
+
+document.querySelector("#resetBtn").addEventListener("click", () => {
+    count = 0;
+    countDisplay.textContent = count;
+    historyList.innerHTML = "";
+});
+
+historyList.addEventListener("click", (e) => {
+    if (e.target.tagName === "LI") {
+        e.target.remove();
+    }
+});
+
+document.querySelector("#clearHistory").addEventListener("click", () => {
+    const items = historyList.querySelectorAll("li");
+    items.forEach(item => {
+        item.remove();
+    });
+});
+
+window.addEventListener("beforeunload", () => {
+    localStorage.setItem("count", count);
+    localStorage.setItem("history", historyList.innerHTML);
+});
+
+window.addEventListener("load", () => {
+    count = Number(localStorage.getItem("count")) || 0;
+    countDisplay.textContent = count;
+    historyList.innerHTML = localStorage.getItem("history") || "";
+});
+
+```
