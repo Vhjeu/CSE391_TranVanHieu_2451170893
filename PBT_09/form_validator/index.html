@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Đăng Ký Tài Khoản</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="name">Họ và tên</label>
+                <div class="input-wrapper">
+                    <input type="text" id="name" placeholder="Nhập họ tên">
+                    <span id="nameIcon" class="status-icon"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="Nhập email">
+                <span id="emailError" class="error-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" placeholder="Nhập mật khẩu">
+                <div class="strength-meter">
+                    <div id="strengthBar" class="strength-bar"></div>
+                </div>
+                <span id="strengthText" class="strength-text"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Xác nhận mật khẩu</label>
+                <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu">
+                <span id="confirmError" class="error-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Số điện thoại</label>
+                <input type="text" id="phone" placeholder="0xxx-xxx-xxx">
+                <span id="phoneError" class="error-msg"></span>
+            </div>
+
+            <button type="submit" id="submitBtn" disabled>Đăng Ký</button>
+        </form>
+    </div>
+
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>🎉 Đăng ký thành công!</h3>
+            <div id="modalData"></div>
+            <button id="closeModal">Đóng</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
