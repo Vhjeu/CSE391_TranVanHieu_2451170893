@@ -104,8 +104,6 @@ Output sẽ chỉ in ra một dòng duy nhất:
 
 1. `BUTTON`
 
----
-
 ### 2. Giải thích chi tiết
 
 * **Event Bubbling (Sủi bọt sự kiện) là gì?** Theo mặc định trong trình duyệt, khi một sự kiện (như `click`) xảy ra trên một phần tử, nó không chỉ chạy hàm xử lý của phần tử đó, mà còn tự động "sủi bọt" (lan truyền) ngược lên các phần tử cha chứa nó, chạy lần lượt đến tận `<html>` hoặc `document`.
