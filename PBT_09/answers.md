@@ -239,8 +239,6 @@ for (let i = 0; i < 1000; i++) {
 // Thêm toàn bộ fragment vào DOM trong 1 lần duy nhất
 document.body.appendChild(fragment); // ← Chỉ gây ra đúng 1 lần reflow!
 
-```
-
 **Giải thích: Tại sao dùng `DocumentFragment` lại nhanh hơn?**
 
 * **Reflow là gì?** Khi bạn thay đổi cấu trúc DOM (thêm/sửa/xóa phần tử), trình duyệt phải tính toán lại kích thước, vị trí của phần tử đó và tất cả các phần tử liên quan trên màn hình. Quá trình này gọi là **Reflow (hoặc Layout)** và nó **rất tốn tài nguyên**.
