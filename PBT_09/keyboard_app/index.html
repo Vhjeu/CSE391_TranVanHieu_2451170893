@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Shortcuts & Accessibility</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Bộ sưu tập Ảnh</h1>
+        <p>Nhấn <kbd>Ctrl</kbd> + <kbd>K</kbd> để mở bảng lệnh.</p>
+    </header>
+
+    <main>
+        <div id="gallery" class="gallery" role="region" aria-label="Danh sách ảnh"></div>
+    </main>
+
+    <div id="lightbox" class="overlay hidden" role="dialog" aria-modal="true" aria-label="Trình xem ảnh chi tiết">
+        <button id="closeLightbox" class="icon-btn" aria-label="Đóng bảng xem ảnh">×</button>
+        <button id="prevBtn" class="icon-btn nav-btn left" aria-label="Ảnh trước">‹</button>
+        <div class="img-container">
+            <img id="lightboxImg" src="" alt="Ảnh phóng to">
+            <div id="playIndicator" class="indicator hidden" aria-live="polite">Đang phát tự động...</div>
+        </div>
+        <button id="nextBtn" class="icon-btn nav-btn right" aria-label="Ảnh tiếp theo">›</button>
+    </div>
+
+    <div id="commandPalette" class="overlay hidden" role="dialog" aria-modal="true" aria-label="Bảng lệnh">
+        <div class="palette-content">
+            <input type="text" id="cmdInput" aria-label="Tìm kiếm lệnh" placeholder="Gõ lệnh...">
+            <ul id="cmdList" role="listbox" aria-label="Danh sách lệnh kết quả"></ul>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
