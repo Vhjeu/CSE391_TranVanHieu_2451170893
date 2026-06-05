@@ -53,7 +53,6 @@ Câu A2:
 - Sự khác biệt giữa `innerHTML` và `textContent`, cũng như vấn đề bảo mật XSS liên quan.
 
 ### 1. Phân biệt `innerHTML` và `textContent`
-
 * **`innerHTML`**: Lấy hoặc thiết lập nội dung của một phần tử **bao gồm cả các thẻ HTML**. Khi bạn gán một chuỗi chứa các thẻ HTML (như `<strong>`, `<span>`) vào `innerHTML`, trình duyệt sẽ phân tích (parse) chuỗi đó và render ra giao diện như các thẻ HTML thực sự.
 * **`textContent`**: Chỉ lấy hoặc thiết lập **văn bản thuần túy (plain text)** của phần tử và tất cả các phần tử con của nó. Nếu bạn gán một chuỗi chứa thẻ HTML vào `textContent`, trình duyệt sẽ coi đó chỉ là các ký tự văn bản thông thường (nó tự động mã hóa các dấu `<` và `>`) và hiển thị nguyên xi chuỗi đó lên màn hình chứ không render thẻ.
 
@@ -76,7 +75,6 @@ Vì `innerHTML` ra lệnh cho trình duyệt "Hãy đọc chuỗi này và biế
 const userInput = document.querySelector("#search").value;
 document.querySelector("#result").innerHTML = userInput;  // ← Nguy hiểm!
 
-```
 
 * Khi gán bằng `innerHTML`, trình duyệt thấy thẻ `<img>` và cố gắng tải hình ảnh từ đường dẫn `src="x"`.
 * Đường dẫn `x` không tồn tại, nên việc tải ảnh bị lỗi.
@@ -88,8 +86,29 @@ Rất đơn giản, hãy thay thế `innerHTML` bằng `textContent` khi làm vi
 ```javascript
 // Cách sửa an toàn:
 const userInput = document.querySelector("#search").value;
-document.querySelector("#result").textContent = userInput; // ← An toàn tuyệt đối!
+document.querySelector("#result").textContent = userInput; 
 
-```
+Câu A3:
+Dưới đây là dự đoán kết quả và phần giải thích chi tiết về cơ chế sủi bọt sự kiện (Event Bubbling) trong JavaScript:
 
-*Trực quan:* Khi dùng `textContent`, chuỗi `<img src=x onerror="alert('Hacked!')">` sẽ hiển thị nguyên xi trên màn hình giống như bạn đang đọc một đoạn văn bản bình thường, trình duyệt sẽ không coi nó là một thẻ HTML để thực thi.
+### 1. Dự đoán Output
+**Trường hợp 1: Khi chưa bỏ comment (Chạy bình thường)**
+Khi click vào nút `<button id="btn">`, thứ tự in ra sẽ là từ trong ra ngoài:
+
+1. `BUTTON`
+2. `INNER`
+3. `OUTER`
+
+**Trường hợp 2: Nếu bỏ comment dòng `e.stopPropagation()**`
+Output sẽ chỉ in ra một dòng duy nhất:
+
+1. `BUTTON`
+
+---
+
+### 2. Giải thích chi tiết
+
+* **Event Bubbling (Sủi bọt sự kiện) là gì?** Theo mặc định trong trình duyệt, khi một sự kiện (như `click`) xảy ra trên một phần tử, nó không chỉ chạy hàm xử lý của phần tử đó, mà còn tự động "sủi bọt" (lan truyền) ngược lên các phần tử cha chứa nó, chạy lần lượt đến tận `<html>` hoặc `document`.
+Vì `btn` nằm trong `inner`, và `inner` lại nằm trong `outer`, nên sự kiện click truyền từ `btn` ➔ `inner` ➔ `outer`.
+* **Tác dụng của `e.stopPropagation()`:**
+Hàm này dịch sát nghĩa là "Ngăn chặn sự lan truyền". Khi được gọi ở bên trong listener của `#btn`, nó ra lệnh cho trình duyệt: *"Dừng ngay sự kiện này lại ở đây, không được sủi bọt lên các phần tử cha nữa"*. Do đó, các hàm `console.log` của `#inner` và `#outer` sẽ không bao giờ được kích hoạt.
