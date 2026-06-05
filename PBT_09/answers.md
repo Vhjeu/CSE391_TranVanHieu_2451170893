@@ -202,4 +202,47 @@ window.addEventListener("load", () => {
     historyList.innerHTML = localStorage.getItem("history") || "";
 });
 
+Câu C2:
+
+### 1. Vấn đề 1: Event Binding vs Event Delegation
+
+**Tại sao gắn (bind) sự kiện lên 1000 elements riêng lẻ là BAD PRACTICE?**
+
+* **Ngốn bộ nhớ (Memory Leak rủi ro):** Trình duyệt phải tạo và lưu trữ 1000 hàm (function objects) trong bộ nhớ RAM cho 1000 sự kiện (event listeners) đó. Số lượng element càng lớn, web càng giật lag và hao tài nguyên.
+* **Chậm trễ khởi tạo:** Việc chạy vòng lặp 1000 lần để tìm DOM và gắn sự kiện sẽ làm nghẽn luồng chính (Main Thread) của JavaScript, khiến trang web bị "đơ" tạm thời lúc mới load.
+* **Không hỗ trợ phần tử động:** Nếu sau đó bạn dùng JS tạo thêm phần tử thứ 1001, phần tử mới này sẽ **không có** sự kiện đó. Bạn lại phải viết code để bind sự kiện cho riêng nó, rất dễ sinh bug.
+
+**Event Delegation giải quyết thế nào?**
+Event Delegation (Ủy quyền sự kiện) tận dụng cơ chế **Event Bubbling (Sủi bọt sự kiện)**.
+Thay vì gắn 1000 sự kiện cho 1000 phần tử con, ta chỉ gắn **1 sự kiện duy nhất** cho phần tử cha chứa chúng. Khi người dùng click vào phần tử con, sự kiện sẽ "sủi bọt" lên phần tử cha. Tại đây, ta dùng `event.target` để xác định chính xác phần tử con nào vừa bị click và xử lý.
+
+* *Lợi ích:* Chỉ tốn 1 ô nhớ cho 1 function duy nhất, code chạy cực nhanh và tự động nhận diện được các phần tử con mới được thêm vào sau này.
+
+---
+
+### 2. Vấn đề 2: Reflow và DocumentFragment
+
+**Code Refactor dùng DocumentFragment:**
+
+```javascript
+// Tạo một DocumentFragment rỗng trong bộ nhớ
+const fragment = document.createDocumentFragment();
+
+for (let i = 0; i < 1000; i++) {
+    const div = document.createElement("div");
+    div.textContent = `Item ${i}`;
+    
+    // Thêm div vào fragment (KHÔNG gây reflow)
+    fragment.appendChild(div); 
+}
+
+// Thêm toàn bộ fragment vào DOM trong 1 lần duy nhất
+document.body.appendChild(fragment); // ← Chỉ gây ra đúng 1 lần reflow!
+
 ```
+
+**Giải thích: Tại sao dùng `DocumentFragment` lại nhanh hơn?**
+
+* **Reflow là gì?** Khi bạn thay đổi cấu trúc DOM (thêm/sửa/xóa phần tử), trình duyệt phải tính toán lại kích thước, vị trí của phần tử đó và tất cả các phần tử liên quan trên màn hình. Quá trình này gọi là **Reflow (hoặc Layout)** và nó **rất tốn tài nguyên**.
+* **Code cũ:** Bạn dùng `document.body.appendChild(div)` ngay bên trong vòng lặp. Trình duyệt bị ép phải thực hiện quá trình tính toán Reflow lại cấu trúc trang web **1000 lần liên tục**. Điều này gây ra hiện tượng "thắt cổ chai" hiệu năng.
+* **Cách DocumentFragment hoạt động:** `DocumentFragment` giống như một cái "thùng chứa vô hình" nằm trong bộ nhớ RAM (Memory), nó **không nằm trên cây DOM thực tế**. Do đó, việc bạn ném 1000 cái div vào thùng chứa này sẽ không kích hoạt bất kỳ lần Reflow nào. Cuối cùng, khi bạn đổ cả cái thùng đó vào `document.body`, trình duyệt chỉ cần vẽ màn hình lại đúng **1 lần duy nhất** cho toàn bộ 1000 phần tử.
