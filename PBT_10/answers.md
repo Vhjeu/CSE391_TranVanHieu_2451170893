@@ -79,7 +79,6 @@ Câu A3:
 ---
 
 ### 3. Ví dụ 4 cấp Callback Hell
-
 ```javascript
 getUser(1, (err, user) => {
     if (err) return console.error(err);
@@ -98,7 +97,6 @@ getUser(1, (err, user) => {
         });
     });
 });
-
 
 ### 4. Refactor thành async/await
 ```javascript
