@@ -10,7 +10,7 @@
     <link href="style.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="p-4">
     <div class="task-list-container border border-primary-subtle">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="fw-bold text-dark mb-0">Task List</h2>
@@ -18,6 +18,7 @@
                 <i class="bi bi-plus fs-5 align-middle"></i> Add Task
             </button>
         </div>
+
         <div class="d-flex flex-column gap-3">
             <div class="card task-card p-3">
                 <div class="d-flex align-items-center justify-content-between">
@@ -41,6 +42,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="card task-card p-3">
                 <div class="d-flex align-items-center justify-content-between">
                     <div style="width: 25%;">
@@ -63,6 +65,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="card task-card p-3">
                 <div class="d-flex align-items-center justify-content-between">
                     <div style="width: 25%;">
@@ -87,6 +90,7 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-4 border-1 border-primary-subtle">
@@ -103,6 +107,7 @@
                             Tên Task không được để trống và không được vượt quá 100 kí tự!
                         </div>
                     </div>
+
                     <div class="mb-5">
                         <label class="form-label text-muted small fw-semibold d-block">Priority</label>
                         <div class="d-flex gap-3">
@@ -122,27 +127,9 @@
             </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.getElementById('addTaskBtn').addEventListener('click', function () {
-            const taskInput = document.getElementById('taskInput');
-            const taskValue = taskInput.value.trim();
-
-            taskInput.classList.remove('is-invalid');
-
-            if (taskValue === '' || taskValue.length > 100) {
-                taskInput.classList.add('is-invalid');
-            } else {
-                alert('Dữ liệu hợp lệ! Task "' + taskValue + '" đã sẵn sàng để thêm.');
-                taskInput.value = '';
-                const modalElement = document.getElementById('addTaskModal');
-                const modalInstance = bootstrap.Modal.getInstance(modalElement);
-                if (modalInstance) {
-                    modalInstance.hide();
-                }
-            }
-        });
-    </script>
+    <script src="main.js"></script>
 </body>
 
 </html>
