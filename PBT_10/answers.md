@@ -54,3 +54,66 @@ Trong đoạn code trên, khối `catch` sẽ bắt được các loại lỗi s
 * **Network error:** Lỗi rớt mạng internet, sai địa chỉ IP, hoặc máy chủ sập hoàn toàn từ chối kết nối (lúc này bản thân hàm `fetch` sẽ tự văng lỗi `TypeError`).
 * **Lỗi HTTP (404, 500...):** Mặc định `fetch` không coi lỗi 404 hay 500 là lỗi mạng (nó vẫn resolve bình thường). Nhưng nhờ đoạn code `if (!response.ok) { throw new Error(...) }`, chúng ta đã chủ động ném ra lỗi nếu HTTP status không thành công, và `catch` sẽ tóm được lỗi này.
 * **JSON parse error:** Nếu server phản hồi thành công (mã 200) nhưng dữ liệu trả về bị hỏng, hoặc là mã HTML/Plain text chứ không phải chuẩn JSON, lệnh `response.json()` sẽ thất bại và văng ra lỗi `SyntaxError`, khối `catch` cũng sẽ bắt được lỗi này.
+
+Câu A3:
+### 1. Sơ đồ 3 trạng thái của Promise
+
+```text
+                  ↗ Fulfilled (Thành công) ➔ Gọi hàm trong .then()
+                 /
+  Pending (Chờ) 
+                 \
+                  ↘ Rejected (Thất bại)    ➔ Gọi hàm trong .catch()
+
+```
+
+* **Pending:** Trạng thái khởi tạo ban đầu. Tác vụ bất đồng bộ đang được thực thi và chưa có kết quả.
+* **Fulfilled (Resolved):** Tác vụ bất đồng bộ đã hoàn tất thành công. Promise trả về một giá trị kết quả.
+* **Rejected:** Tác vụ bất đồng bộ đã thất bại. Promise trả về một lý do lỗi.
+*(Khi Promise đã chuyển sang Fulfilled hoặc Rejected, trạng thái của nó bị khóa vĩnh viễn và không thể thay đổi được nữa).*
+---
+
+### 2. Callback Hell là gì?
+- Callback Hell (còn được gọi là Pyramid of Doom - Kim tự tháp diệt vong) là tình trạng xảy ra trong lập trình JavaScript bất đồng bộ khi các hàm callback được lồng vào nhau quá nhiều lớp.
+- Mỗi khi một tác vụ bất đồng bộ cần kết quả của tác vụ trước đó để chạy tiếp, lập trình viên phải nhét hàm xử lý vào bên trong hàm trước đó. Khi số lượng tác vụ tăng lên, code liên tục thụt lề sang phải tạo thành hình mũi tên. Điều này khiến cấu trúc code trở nên cực kỳ khó đọc, rất khó để bảo trì, luồng thực thi phức tạp và việc bắt lỗi (error handling) trở thành một cơn ác mộng vì phải xử lý lỗi ở từng cấp độ lồng nhau.
+---
+
+### 3. Ví dụ 4 cấp Callback Hell
+
+```javascript
+getUser(1, (err, user) => {
+    if (err) return console.error(err);
+    
+    getPosts(user.id, (err, posts) => {
+        if (err) return console.error(err);
+        
+        getComments(posts[0].id, (err, comments) => {
+            if (err) return console.error(err);
+            
+            getAuthor(comments[0].authorId, (err, author) => {
+                if (err) return console.error(err);
+                
+                console.log(author.name);
+            });
+        });
+    });
+});
+
+
+### 4. Refactor thành async/await
+```javascript
+const displayAuthor = async (userId) => {
+    try {
+        const user = await getUser(userId);
+        const posts = await getPosts(user.id);
+        const comments = await getComments(posts[0].id);
+        const author = await getAuthor(comments[0].authorId);
+        
+        console.log(author.name);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+displayAuthor(1);
+
