@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List UI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="task-list-container border border-primary-subtle">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold text-dark mb-0">Task List</h2>
+            <button class="btn btn-purple rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+                <i class="bi bi-plus fs-5 align-middle"></i> Add Task
+            </button>
+        </div>
+        <div class="d-flex flex-column gap-3">
+            <div class="card task-card p-3">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div style="width: 25%;">
+                        <small class="text-muted d-block mb-1">Task</small>
+                        <span class="fw-semibold">Go to gym</span>
+                    </div>
+                    <div style="width: 20%;">
+                        <small class="text-muted d-block mb-1">Priority</small>
+                        <span class="fw-bold text-danger small">High</span>
+                    </div>
+                    <div style="width: 20%; text-align: center;">
+                        <span class="badge-status">To Do</span>
+                    </div>
+                    <div style="width: 10%; text-align: center;">
+                        <i class="bi bi-circle text-muted fs-5"></i>
+                    </div>
+                    <div class="action-icons d-flex justify-content-end" style="width: 15%;">
+                        <i class="bi bi-pencil-square text-dark"></i>
+                        <i class="bi bi-trash text-danger"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card task-card p-3">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div style="width: 25%;">
+                        <small class="text-muted d-block mb-1">Task</small>
+                        <span class="fw-semibold">Read a book</span>
+                    </div>
+                    <div style="width: 20%;">
+                        <small class="text-muted d-block mb-1">Priority</small>
+                        <span class="fw-bold text-success small">Low</span>
+                    </div>
+                    <div style="width: 20%; text-align: center;">
+                        <span class="badge-status">Done</span>
+                    </div>
+                    <div style="width: 10%; text-align: center;">
+                        <i class="bi bi-circle text-purple fs-5"></i>
+                    </div>
+                    <div class="action-icons d-flex justify-content-end" style="width: 15%;">
+                        <i class="bi bi-pencil-square text-dark"></i>
+                        <i class="bi bi-trash text-danger"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card task-card p-3">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div style="width: 25%;">
+                        <small class="text-muted d-block mb-1">Task</small>
+                        <span class="fw-semibold">Go to market</span>
+                    </div>
+                    <div style="width: 20%;">
+                        <small class="text-muted d-block mb-1">Priority</small>
+                        <span class="fw-bold text-warning small">Medium</span>
+                    </div>
+                    <div style="width: 20%; text-align: center;">
+                        <span class="badge-status">In Progress</span>
+                    </div>
+                    <div style="width: 10%; text-align: center;">
+                        <div class="progress-arc"></div>
+                    </div>
+                    <div class="action-icons d-flex justify-content-end" style="width: 15%;">
+                        <i class="bi bi-pencil-square text-dark"></i>
+                        <i class="bi bi-trash text-danger"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-1 border-primary-subtle">
+                <div class="modal-header border-0 pb-0 mt-2 mx-2">
+                    <h5 class="modal-title fw-bold" id="addTaskModalLabel">Add Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4 pt-3 pb-4">
+                    <div class="mb-4">
+                        <label class="form-label text-muted small fw-semibold">Task</label>
+                        <input type="text" id="taskInput" class="form-control rounded-3 py-2"
+                            placeholder="Type your task here...">
+                        <div class="invalid-feedback">
+                            Tên Task không được để trống và không được vượt quá 100 kí tự!
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label class="form-label text-muted small fw-semibold d-block">Priority</label>
+                        <div class="d-flex gap-3">
+                            <button type="button" class="btn btn-outline-danger px-4 rounded-3 bg-white">High</button>
+                            <button type="button"
+                                class="btn btn-outline-warning px-4 rounded-3 bg-white text-dark">Medium</button>
+                            <button type="button" class="btn btn-success px-4 rounded-3 border-0"
+                                style="background-color: #10b981;">Low</button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="button" id="addTaskBtn" class="btn text-white px-4 py-2 rounded-3"
+                            style="background-color: #6b7280;">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('addTaskBtn').addEventListener('click', function () {
+            const taskInput = document.getElementById('taskInput');
+            const taskValue = taskInput.value.trim();
+
+            taskInput.classList.remove('is-invalid');
+
+            if (taskValue === '' || taskValue.length > 100) {
+                taskInput.classList.add('is-invalid');
+            } else {
+                alert('Dữ liệu hợp lệ! Task "' + taskValue + '" đã sẵn sàng để thêm.');
+                taskInput.value = '';
+                const modalElement = document.getElementById('addTaskModal');
+                const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                if (modalInstance) {
+                    modalInstance.hide();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
