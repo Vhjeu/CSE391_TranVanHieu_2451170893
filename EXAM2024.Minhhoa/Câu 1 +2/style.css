@@ -1,0 +1,67 @@
+body {
+    background-color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.task-list-container {
+    background-color: #f4f6fa;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 900px;
+    margin: auto;
+}
+
+.btn-purple {
+    background-color: #7b5ff2;
+    color: white;
+    border: none;
+    font-weight: 500;
+}
+
+.btn-purple:hover {
+    background-color: #6a4ee0;
+    color: white;
+}
+
+.task-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: transform 0.2s;
+}
+
+.task-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.badge-status {
+    background-color: #f0f0f0;
+    color: #6c757d;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.action-icons i {
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
+
+.text-purple {
+    color: #7b5ff2;
+}
+
+.progress-arc {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2.5px solid #7b5ff2;
+    border-right-color: transparent;
+    border-radius: 50%;
+    vertical-align: middle;
+    transform: rotate(15deg);
+}
