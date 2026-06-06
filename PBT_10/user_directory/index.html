@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Directory</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="toastContainer"></div>
+
+    <div class="container">
+        <header>
+            <h1>User Directory</h1>
+        </header>
+
+        <section class="form-section">
+            <h2 id="formTitle">Thêm User Mới</h2>
+            <form id="userForm">
+                <input type="hidden" id="userId">
+                <div class="input-group">
+                    <input type="text" id="name" placeholder="Họ và tên" required>
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="phone" placeholder="Số điện thoại" required>
+                    <input type="text" id="company" placeholder="Tên công ty" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn-secondary hidden">Hủy</button>
+                    <button type="submit" id="submitBtn" class="btn-primary">Lưu User</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="list-section">
+            <div class="list-header">
+                <h2>Danh sách Users</h2>
+                <input type="text" id="searchInput" placeholder="Tìm theo tên hoặc email...">
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên</th>
+                            <th>Email</th>
+                            <th>Điện thoại</th>
+                            <th>Công ty</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                    </tbody>
+                </table>
+                <div id="skeletonLoader" class="skeleton-container hidden">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
