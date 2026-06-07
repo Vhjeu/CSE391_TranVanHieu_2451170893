@@ -60,7 +60,7 @@ Ví dụ: Nhóm chọn giới tính
 - aria-label dùng khi: Khi nút bấm chỉ có icon, không có chữ.
 không nên dùng khi đã có label vì nó có thể bị lặp, máy sẽ có thể đọc lại
 
-__________________________________________________________________________________________
+________________________________________________________________________________
 Câu A4: Media
 (1)
 - Thuộc tính loading="lazy" trên thẻ <img>:
