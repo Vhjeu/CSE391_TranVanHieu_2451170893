@@ -164,7 +164,6 @@ async function fetchWithTimeout(url, options = {}, ms = 10000) {
 }
 
 ```
-
 ### 4. Retry Logic (Thử lại khi gặp lỗi)
 
 **Giải thích:**
@@ -194,6 +193,120 @@ async function fetchWithRetry(url, options = {}, maxRetries = 3) {
         
         await new Promise(res => setTimeout(res, 1000 * (i + 1)));
     }
+}
+
+
+Câu C2:
+### 1. Phân biệt các phương thức Promise
+**1. `Promise.all()**`
+
+* **Khi nào resolve?** Khi **tất cả** các promises trong mảng đều resolve thành công. Trả về mảng các kết quả theo đúng thứ tự truyền vào.
+* **Khi nào reject?** Ngay lập tức khi có **bất kỳ một** promise nào reject (cơ chế fail-fast), bỏ qua các promises còn lại.
+* **Use case:** Khi bạn cần lấy nhiều luồng dữ liệu độc lập nhưng bắt buộc phải có đủ tất cả dữ liệu đó mới có thể hiển thị giao diện (Ví dụ: Load trang chi tiết sản phẩm cần gọi API thông tin sản phẩm, API đánh giá và API sản phẩm liên quan).
+
+**2. `Promise.allSettled()**`
+
+* **Khi nào resolve?** Khi **tất cả** các promises đã chạy xong hoàn toàn (dù resolve hay reject). Trả về mảng chứa trạng thái (`"fulfilled"` hoặc `"rejected"`) và giá trị/lỗi của từng promise.
+* **Khi nào reject?** Không bao giờ reject (chỉ reject nếu bạn truyền vào một thứ không thể lặp).
+* **Use case:** Khi thực hiện hàng loạt các tác vụ độc lập mà sự thất bại của một tác vụ không ảnh hưởng đến các tác vụ khác (Ví dụ: Gửi hàng loạt email thông báo, upload nhiều file ảnh cùng lúc, hoặc tải các widget dashboard độc lập).
+
+**3. `Promise.race()**`
+
+* **Khi nào resolve?** Khi promise chạy xong **đầu tiên** là resolve.
+* **Khi nào reject?** Khi promise chạy xong **đầu tiên** là reject.
+*(Tóm lại: Lấy kết quả của kẻ về đích đầu tiên, bất kể thắng thua).*
+* **Use case:** Áp đặt thời gian chờ tối đa (Timeout) cho một API call chậm chạp.
+
+**4. `Promise.any()**`
+
+* **Khi nào resolve?** Ngay lập tức khi có **bất kỳ một** promise nào resolve (kẻ thành công đầu tiên).
+* **Khi nào reject?** Khi **tất cả** các promises đều reject. Trả về một `AggregateError` chứa tất cả các lỗi.
+* **Use case:** Lấy một tài nguyên từ nhiều máy chủ dự phòng (CDN/Mirror). Thử tải từ server Mỹ, Nhật, Singapore, server nào phản hồi file thành công nhanh nhất thì dùng file đó, chỉ báo lỗi nếu tất cả server đều sập.
+
+
+### 2. Ví dụ Code Thực Tế
+
+**Ví dụ `Promise.all()**`
+
+```javascript
+const fetchProductInfo = fetch('/api/products/100').then(res => res.json());
+const fetchReviews = fetch('/api/products/100/reviews').then(res => res.json());
+const fetchRelated = fetch('/api/products/100/related').then(res => res.json());
+
+try {
+    const [product, reviews, related] = await Promise.all([
+        fetchProductInfo,
+        fetchReviews,
+        fetchRelated
+    ]);
+    
+    renderProductPage(product, reviews, related);
+} catch (error) {
+    showErrorPage();
+}
+
+
+**Ví dụ `Promise.allSettled()**`
+
+```javascript
+const uploadTasks = selectedImages.map(img => 
+    fetch('/api/upload', {
+        method: 'POST',
+        body: img
+    }).then(res => {
+        if (!res.ok) throw new Error('Upload failed');
+        return res.json();
+    })
+);
+
+const results = await Promise.allSettled(uploadTasks);
+
+results.forEach((result, index) => {
+    if (result.status === 'fulfilled') {
+        updateUIUploadSuccess(index, result.value.url);
+    } else {
+        updateUIUploadFailed(index, result.reason);
+    }
+});
+
+**Ví dụ `Promise.race()**`
+
+```javascript
+const fetchPaymentStatus = fetch('/api/payment/status/999').then(res => res.json());
+
+const timeoutGuard = new Promise((_, reject) => {
+    setTimeout(() => {
+        reject(new Error('Payment gateway timeout'));
+    }, 8000);
+});
+
+try {
+    const paymentResult = await Promise.race([fetchPaymentStatus, timeoutGuard]);
+    processOrder(paymentResult);
+} catch (error) {
+    handlePaymentTimeoutOrError(error);
+}
+
+```
+
+**Ví dụ `Promise.any()**`
+
+```javascript
+const loadFromCDN1 = fetch('https://cdn-primary.com/video.mp4').then(res => {
+    if (!res.ok) throw new Error('CDN 1 failed');
+    return res.blob();
+});
+
+const loadFromCDN2 = fetch('https://cdn-backup.com/video.mp4').then(res => {
+    if (!res.ok) throw new Error('CDN 2 failed');
+    return res.blob();
+});
+
+try {
+    const videoBlob = await Promise.any([loadFromCDN1, loadFromCDN2]);
+    playVideo(videoBlob);
+} catch (aggregateError) {
+    showVideoUnavailableError();
 }
 
 
