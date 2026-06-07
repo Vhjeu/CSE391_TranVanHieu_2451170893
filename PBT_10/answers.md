@@ -115,3 +115,85 @@ const displayAuthor = async (userId) => {
 
 displayAuthor(1);
 
+_____________________________________________________________________________
+Câu C1:
+
+### 1. Network Errors (Mất kết nối mạng)
+
+**Chiến lược xử lý:**
+Hàm `fetch()` trong JavaScript chỉ thực sự văng lỗi (reject) thành `TypeError` khi có sự cố về kết nối mạng (rớt mạng, không thể phân giải DNS). Khi bắt được lỗi này, chiến lược tốt nhất là:
+
+* Hiển thị một thông báo toàn cục (Toast/Banner) cho người dùng: "Mất kết nối mạng. Vui lòng kiểm tra lại Internet."
+* Lưu lại các hành động chưa hoàn thành (ví dụ: đang thêm vào giỏ hàng) vào bộ nhớ cục bộ.
+* Cung cấp một nút "Thử lại" để người dùng chủ động tải lại dữ liệu, hoặc sử dụng sự kiện `window.addEventListener('online', ...)` để tự động gọi lại API ngay khi có mạng trở lại.
+
+### 2. API Errors (Lỗi mã trạng thái HTTP)
+
+**Chiến lược xử lý:**
+Khi server phản hồi, `fetch()` vẫn coi là thành công (resolve) dù mã trạng thái là 4xx hay 5xx. Bạn phải kiểm tra `!response.ok` và xử lý theo từng nhóm mã lỗi:
+
+* **Lỗi 404 (Not Found):** Tài nguyên không tồn tại (ví dụ: sản phẩm đã bị xóa hoặc URL sai).
+* *Xử lý:* Điều hướng người dùng về trang lỗi 404 thân thiện hoặc trang chủ, hiển thị thông báo "Sản phẩm này không còn tồn tại hoặc đã bị gỡ xuống."
+
+* **Lỗi 500 (Internal Server Error):** Lỗi từ phía máy chủ (database sập, code backend lỗi).
+* *Xử lý:* Tuyệt đối không hiển thị lỗi kỹ thuật thô ra màn hình. Hiển thị thông báo chung chung: "Hệ thống đang gặp sự cố. Vui lòng thử lại sau ít phút." Ghi log lỗi này lên hệ thống theo dõi (như Sentry) để đội backend sửa.
+
+* **Lỗi 429 (Too Many Requests):** Bị chặn do gọi API quá nhanh/nhiều.
+* *Xử lý:* Áp dụng chiến lược "Exponential Backoff" (chờ một khoảng thời gian tăng dần trước khi gọi lại). Đọc header `Retry-After` từ server (nếu có) để biết chính xác số giây cần chờ, và báo cho người dùng: "Bạn thao tác quá nhanh, vui lòng chờ X giây."
+
+### 3. Timeout (Xử lý API bị treo)
+
+**Giải thích:**
+Mặc định `fetch()` không có tham số timeout, nó có thể treo rất lâu nếu mạng chập chờn hoặc server phản hồi chậm. Ta sử dụng `AbortController` để tạo ra một "công tắc". Khi `setTimeout` đếm hết 10 giây, công tắc này sẽ kích hoạt lệnh `abort()`, ép `fetch()` dừng lại lập tức và văng lỗi `AbortError`.
+
+**Code `fetchWithTimeout`:**
+
+```javascript
+async function fetchWithTimeout(url, options = {}, ms = 10000) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), ms);
+    
+    try {
+        const response = await fetch(url, { ...options, signal: controller.signal });
+        clearTimeout(timeoutId);
+        return response;
+    } catch (error) {
+        clearTimeout(timeoutId);
+        throw error;
+    }
+}
+
+```
+
+### 4. Retry Logic (Thử lại khi gặp lỗi)
+
+**Giải thích:**
+Khi gặp lỗi rớt mạng (`TypeError`) hoặc lỗi hệ thống tạm thời (5xx, 429), ta cho phép gọi lại API tối đa `maxRetries` lần. Lưu ý: Nếu gặp lỗi 4xx (như 400 Bad Request, 401 Unauthorized, 404 Not Found), ta ném lỗi ra ngay lập tức và KHÔNG thử lại, vì dữ liệu client gửi lên đã sai thì có gọi lại 100 lần cũng vẫn sẽ thất bại. Trong code dưới đây, có thêm một khoảng thời gian trễ nhỏ giữa các lần gọi lại để giảm tải cho server.
+
+**Code `fetchWithRetry`:**
+
+```javascript
+async function fetchWithRetry(url, options = {}, maxRetries = 3) {
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            const response = await fetch(url, options);
+            
+            if (response.ok) return response;
+            
+            if (response.status >= 400 && response.status < 500 && response.status !== 429) {
+                throw new Error(`Lỗi Client: ${response.status}`);
+            }
+            
+            if (i === maxRetries - 1) {
+                throw new Error(`API thất bại sau ${maxRetries} lần thử (HTTP ${response.status})`);
+            }
+        } catch (error) {
+            if (error.name === 'AbortError') throw error;
+            if (i === maxRetries - 1) throw error;
+        }
+        
+        await new Promise(res => setTimeout(res, 1000 * (i + 1)));
+    }
+}
+
+
