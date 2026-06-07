@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <header>
+            <h1>Tổng hợp Dữ liệu API</h1>
+            <div class="header-actions">
+                <span id="timeDisplay">Chưa tải dữ liệu</span>
+                <button id="btnRefresh">Refresh All</button>
+            </div>
+        </header>
+
+        <main class="widget-grid">
+            <div class="widget" id="widgetUser">
+                <h2>👤 Random User</h2>
+                <div class="widget-loading">
+                    <div class="spinner"></div>
+                </div>
+                <div class="widget-error hidden"></div>
+                <div class="widget-content hidden">
+                    <img id="userImg" src="" alt="User">
+                    <h3 id="userName"></h3>
+                    <p id="userEmail"></p>
+                </div>
+            </div>
+
+            <div class="widget" id="widgetDog">
+                <h2>🐶 Random Dog</h2>
+                <div class="widget-loading">
+                    <div class="spinner"></div>
+                </div>
+                <div class="widget-error hidden"></div>
+                <div class="widget-content hidden">
+                    <img id="dogImg" src="" alt="Dog">
+                </div>
+            </div>
+
+            <div class="widget" id="widgetWeather">
+                <h2>⛅ Thời tiết Hà Nội</h2>
+                <div class="widget-loading">
+                    <div class="spinner"></div>
+                </div>
+                <div class="widget-error hidden"></div>
+                <div class="widget-content hidden">
+                    <div class="temp" id="weatherTemp"></div>
+                    <p id="weatherWind"></p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
